@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO="lumetrix-dev/lib-claude-command"
+REPO="523753042/lib-claude-command"
 BRANCH="main"
 BASE_URL="https://raw.githubusercontent.com/$REPO/$BRANCH"
 COMMANDS_DIR="$HOME/.claude/commands"

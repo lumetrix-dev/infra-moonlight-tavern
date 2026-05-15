@@ -14,13 +14,13 @@ Claude Code 全局命令：Sprint 驱动的研发工作流。
 ## 安装
 
 ```bash
-curl -o- https://raw.githubusercontent.com/lumetrix-dev/lib-claude-command/main/install.sh | bash
+curl -o- https://raw.githubusercontent.com/523753042/lib-claude-command/main/install.sh | bash
 ```
 
 或者 clone 后本地安装（离线场景）：
 
 ```bash
-git clone https://github.com/lumetrix-dev/lib-claude-command
+git clone https://github.com/523753042/lib-claude-command
 cd claude-commands && bash install.sh
 ```
 

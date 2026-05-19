@@ -14,6 +14,18 @@
 3. **更新 SPRINT.md**
    - 将已完成的 Task 从 `- [ ]` 改为 `- [x]`
    - 如果一个 Story 的所有 Task 都打勾，在 Story 标题行末尾加 `✅`
+   - 对每个刚打勾的 Task 行，提取看板 ID（`（#([\w-]+)）`）
+
+3.5 **同步看板任务状态**
+   - 从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，跳过此步骤（提示用户可稍后手动运行 `/update-task`）。
+   - 对步骤3中每个提取到看板 ID 的已打勾 Task：
+     - 读取 `{看板路径}/projects/*/tasks/*.md`，找到 `id: {看板ID}` 对应的文件
+     - 修改 frontmatter：
+       - `status: pending` → `status: done`
+       - `updated: {旧日期}` → `updated: {今天 YYYY-MM-DD}`
+     - 保持 Markdown 正文不变
+   - 全部更新后，`cd {看板路径} && git add . && git commit -m "chore: sync completed tasks $(日期)" && git push origin main`
+   - 提示用户：「已同步更新 X 个看板任务状态为 done。」
 
 4. **如果有 Story 完成（全部 Task ✅）**
    - 读取 PROJECT.md

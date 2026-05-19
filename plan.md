@@ -39,9 +39,38 @@
 
 5. **确认后执行**
 
-   a. 将新 Sprint 内容写入 `SPRINT.md`，替换或追加（视情况）
-   b. 更新 `CLAUDE.md` 的「当前状态」节，反映新 Sprint 目标
-   c. 在 PROJECT.md 待办任务表中补录新 Epic 级任务（保持历史完整）
+   a. **同步创建看板任务**
+      - 从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户并保存到记忆中。
+      - 获取当前项目目录名：`basename $(pwd)` → 设为 `PROJECT_NAME`
+      - 获取当前用户：`git config user.name` → 设为 `ASSIGNEE`
+      - 从 Sprint 标题提取时间范围（如 `2026-05-19 ～ 2026-05-26`）→ 设为 `SPRINT_TAG`
+      - 遍历本次 Sprint 的所有 Task（`- [ ] Txx ...`），依次创建看板任务：
+        - 读取 `{看板路径}/projects/{PROJECT_NAME}/tasks/` 目录，找出现有文件的最大编号（`task-{number:03d}.md`），+1 作为新编号
+        - 创建 `task-{number:03d}.md`，frontmatter：
+          ```
+          ---
+          id: {PROJECT_NAME}-{number:03d}
+          title: "{Task 描述}"
+          status: pending
+          priority: medium
+          assignee: {ASSIGNEE}
+          project: {PROJECT_NAME}
+          sprint: {SPRINT_TAG}
+          created: {today}
+          updated: {today}
+          tags: []
+          ---
+          ```
+        - 记录 Task 编号 → 看板 ID 的映射（如 `T27 → my-project-001`）
+      - 所有 Task 创建完毕后，`cd {看板路径} && git add . && git commit -m "feat: add tasks for sprint {SPRINT_TAG}" && git push origin main`
+
+   b. 将带看板 ID 的新 Sprint 内容写入 `SPRINT.md`（在每个 Task 行末尾追加 `（#{看板ID}）`，替换或追加），例如：
+      ```
+      - [ ] T27 实现用户登录接口 `auth/login.py`（#my-project-001）
+      ```
+
+   c. 更新 `CLAUDE.md` 的「当前状态」节，反映新 Sprint 目标
+   d. 在 PROJECT.md 待办任务表中补录新 Epic 级任务（保持历史完整）
 
 ## 输出格式示例
 

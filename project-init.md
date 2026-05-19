@@ -152,8 +152,21 @@ git log --oneline -5 2>/dev/null || echo "无 git 历史"
 建议下一步：运行 /plan 来细化当前 Sprint 的 Task 拆解。
 ```
 
+### 8. 同步看板项目
+
+Project-init 执行到这一步表示用户确认了所有文件。此时自动同步到看板项目：
+
+1. **确认看板路径**：从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户该看板项目在本地的完整路径，然后保存到记忆中。
+
+2. **创建项目目录**：获取当前项目目录名（`basename $(pwd)`），在看板项目中确保 `projects/{当前目录名}/tasks/` 和 `projects/{当前目录名}/sprints/` 目录存在，不存在则创建。
+
+3. **创建看板 sprint 文件**：在看板 `sprints/` 目录下检查是否已有当前 Sprint 对应的 sprint 文件，没有则创建一个与 SPRINT.md 对应的 sprint 记录。
+
+4. **告知同步结果**：「已同步看板项目，后续 /plan 和 /ship 将自动创建/更新看板任务。」
+
 ## 注意
 
 - 如果某个文件已存在且内容完整，跳过不覆盖，只告知用户
 - CLAUDE.md 是最重要的文件，宁可多问一句也不要填错技术栈
 - Task 编号从 T1 开始（PROJECT.md 无历史时）
+- 看板路径只在首次执行 project-init 时需要询问，后续 Group 1 命令会自动从记忆中读取

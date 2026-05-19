@@ -164,9 +164,16 @@ Project-init 执行到这一步表示用户确认了所有文件。此时自动�
 
 4. **告知同步结果**：「已同步看板项目，后续 /plan 和 /ship 将自动创建/更新看板任务。」
 
+### 9. 提交并推送本地项目文件
+
+```bash
+git add CLAUDE.md SPRINT.md PROJECT.md ROADMAP.md && git commit -m "chore: init project workflow files" && git push origin main
+```
+
 ## 注意
 
 - 如果某个文件已存在且内容完整，跳过不覆盖，只告知用户
 - CLAUDE.md 是最重要的文件，宁可多问一句也不要填错技术栈
 - Task 编号从 T1 开始（PROJECT.md 无历史时）
 - 看板路径只在首次执行 project-init 时需要询问，后续 Group 1 命令会自动从记忆中读取
+- 「月光酒馆」「酒馆」「月光」均指 `infra-moonlight-tavern` 项目

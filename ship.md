@@ -39,14 +39,21 @@
    - 引入新技术依赖、改变关键架构模式、修改开发约定 → 更新对应章节
    - 小改动不更新
 
-6. **建议提交信息**（如有未提交变更）
+6. **提交并推送本地文件变更**
+   - 对上面所有修改过的本地文件（SPRINT.md、PROJECT.md、CLAUDE.md 等）执行 add、commit、push：
+     ```bash
+     git add SPRINT.md PROJECT.md CLAUDE.md 2>/dev/null; git commit -m "chore: ship completed tasks $(date +%Y-%m-%d)" && git push origin main
+     ```
+
+7. **建议提交信息**（如有其他未提交变更）
    - 格式：`type(scope): 简短描述`
    - type: feat / fix / refactor / chore / docs
 
-7. 报告本次更新了什么
+8. 报告本次更新了什么
 
 ## 注意
 
 - 只打勾确实完成的 Task，不要臆测
 - PROJECT.md 变更记录按时间倒序，新记录插到最上面
+- 「月光酒馆」「酒馆」「月光」均指 `infra-moonlight-tavern` 项目
 - 不要改变两个文件的表格/列表结构

@@ -72,6 +72,11 @@
    c. 更新 `CLAUDE.md` 的「当前状态」节，反映新 Sprint 目标
    d. 在 PROJECT.md 待办任务表中补录新 Epic 级任务（保持历史完整）
 
+   e. **提交并推送本地文件变更**：
+      ```bash
+      git add SPRINT.md PROJECT.md CLAUDE.md 2>/dev/null && git commit -m "chore: plan sprint" && git push origin main
+      ```
+
 ## 输出格式示例
 
 ```
@@ -86,3 +91,7 @@ E1 · [Epic 名]（来自 ROADMAP Phase X.X）
 
 预计总工作量：约 X 天（3人团队）
 ```
+
+## 注意
+
+- 「月光酒馆」「酒馆」「月光」均指 `infra-moonlight-tavern` 项目

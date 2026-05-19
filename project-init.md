@@ -160,9 +160,18 @@ Project-init 执行到这一步表示用户确认了所有文件。此时自动�
 
 2. **创建项目目录**：获取当前项目目录名（`basename $(pwd)`），在看板项目中确保 `projects/{当前目录名}/tasks/` 和 `projects/{当前目录名}/sprints/` 目录存在，不存在则创建。
 
-3. **创建看板 sprint 文件**：在看板 `sprints/` 目录下检查是否已有当前 Sprint 对应的 sprint 文件，没有则创建一个与 SPRINT.md 对应的 sprint 记录。
+3. **创建 meta.yaml**：如果 `projects/{当前目录名}/meta.yaml` 不存在，则创建。询问用户项目描述和团队成员（`git config user.name` 为默认成员），生成：
+   ```yaml
+   name: {当前目录名}
+   description: "{用户输入的项目描述}"
+   color: "#6366F1"
+   members: [{默认成员}]
+   ```
+   颜色可让用户从预设中选择（如 `#4F46E5` `#6366F1` `#059669` `#D97706` `#DC2626`），默认用 `#6366F1`。
 
-4. **告知同步结果**：「已同步看板项目，后续 /plan 和 /ship 将自动创建/更新看板任务。」
+4. **创建看板 sprint 文件**：在看板 `sprints/` 目录下检查是否已有当前 Sprint 对应的 sprint 文件，没有则创建一个与 SPRINT.md 对应的 sprint 记录。
+
+5. **告知同步结果**：「已同步看板项目，后续 /plan 和 /ship 将自动创建/更新看板任务。」
 
 ### 9. 提交并推送本地项目文件
 

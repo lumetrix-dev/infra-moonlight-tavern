@@ -1,46 +1,57 @@
 # claude-commands
 
-Claude Code 全局命令：Sprint 驱动的研发工作流 + 看板任务管理。
+Claude Code 全局命令：月光酒馆驱动的 Sprint 研发工作流。
 
-包含两个命令组，Group 1 执行时会自动同步到看板。
+所有命令基于 [infra-moonlight-tavern](https://github.com/523753042/infra-moonlight-tavern)（月光酒馆）中央 PM 仓库，任务状态由 PR 生命周期实时推导。
 
 ## 包含命令
 
-### Group 1 — Sprint 工作流（在当前项目目录执行）
+### 月光酒馆 — Sprint 工作流
 
 | 命令 | 作用 |
 |------|------|
-| `/project-init` | 新项目一键初始化：生成 `CLAUDE.md` + `SPRINT.md` + `PROJECT.md` + `ROADMAP.md`，并同步创建看板项目目录 |
-| `/plan` | 规划下一个 Sprint，生成 Epic/Story/Task 写入 `SPRINT.md`，**自动在看板中为每个 Task 创建任务** |
-| `/ship` | 完成任务后打勾 `SPRINT.md`，Story 完成则归档到 `PROJECT.md`，**自动同步看板任务状态为 done** |
-| `/standup` | 读取 git 日志 + 任务状态，输出 15 行项目快照 |
+| `/project-init` | 新项目初始化：在月光酒馆创建项目目录 + meta.yaml + ROADMAP/SPRINT/PROJECT，注册 repos.yml，生成 work repo 的 CLAUDE.md |
+| `/plan` | 规划下一个 Sprint：从 ROADMAP 拆解 Epic/Story/Task，写入 SPRINT.md |
+| `/roadmap` | 规划或更新 ROADMAP.md：基于产品文档和设计稿 brainstorm |
+| `/sp-close` | Sprint 结束时聚合所有 PR 状态，更新 SPRINT.md 并归档到 PROJECT.md |
 
-### Group 2 — 看板任务管理（管理 infra-moonlight-tavern 看板）
+### 月光酒馆 — 状态查询
 
 | 命令 | 作用 |
 |------|------|
-| `/my-tasks` | 查看当前用户在看板中的未完成任务 |
-| `/new-task` | 在看板中创建新任务（生成 `tasks/task-xxx.md` + git commit） |
-| `/update-task` | 更新看板任务的状态、优先级、负责人等字段 |
-| `/sprint-report` | 按 Sprint 生成进度报告（按项目/成员细分） |
+| `/my-tasks` | 列出当前 work repo 在月光酒馆对应项目的未完成任务 + 实时 PR 状态 |
+| `/sprint-report` | 读取 SPRINT.md，结合 GitHub PR 实时状态，生成进度摘要报告 |
 
-## 两组命令的集成
+### Work Repo 侧
 
-Group 1 和 Group 2 管理的是同一套任务数据，无需重复操作：
+| 命令 | 作用 |
+|------|------|
+| `/ship` | 为一个或多个任务创建聚合 draft PR（title 以 `[TXX.X]` 开头） |
+
+## 架构
 
 ```
-/project-init  → 生成项目文件 + 在看板创建项目目录
-     ↓
-/plan          → 规划 Sprint + 自动为每个 Task 创建看板任务
-     ↓
-开发 → commit
-     ↓
-/ship          → 更新 SPRINT.md + 自动同步看板任务为 done
-     ↓
-/standup       → 生成项目状态快照
+moonlight-tavern/          ← 中央 PM 仓库（月光酒馆）
+  repos.yml                注册所有 work repo
+  projects/{name}/
+    meta.yaml              项目元信息
+    ROADMAP.md             长期路线图
+    SPRINT.md              当前 Sprint（PR 生命周期驱动状态）
+    PROJECT.md             已完成 Sprint 归档
+
+work-repo/                 ← 实际开发仓库
+  CLAUDE.md                项目上下文 + 指向月光酒馆
 ```
 
-**看板任务 ID 格式：** `{项目目录名}-{编号}`（如 `my-project-001`），显示在 SPRINT.md 的 Task 行末尾。
+**任务状态由 PR 生命周期实时推导**，无需手动维护：
+
+| PR 状态 | 任务状态 | 图标 |
+|---------|---------|------|
+| 未开 PR | todo | ⚪ |
+| PR isDraft | wip | 🟡 |
+| PR open + ready | review | 🔵 |
+| PR merged | done | ✅ |
+| PR closed 未合并 | error | 🟥 |
 
 ## 安装
 
@@ -68,17 +79,18 @@ cd lib-claude-command && bash install.sh
 - `PROJECT.md` — 已完成任务归档（只增不改）
 - `ROADMAP.md` — 长期规划，`/plan` 读取来拆 Epic
 
-### 看板项目（独立仓库）
+### 月光酒馆（中央 PM 仓库）
 
 ```
 infra-moonlight-tavern/
+├── repos.yml
 ├── projects/
 │   └── {项目名}/
-│       └── tasks/
-│           ├── task-001.md
-│           └── task-002.md
+│       ├── meta.yaml
+│       ├── ROADMAP.md
+│       ├── SPRINT.md
+│       └── PROJECT.md
 └── sprints/
-    └── sprint-2026-05.md
 ```
 
 ## 更新

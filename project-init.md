@@ -1,10 +1,39 @@
-为新项目初始化 sprint 工作流（CLAUDE.md + SPRINT.md + PROJECT.md + ROADMAP.md）。
+为一个新的 work repo 初始化月光酒馆的项目追踪（CLAUDE.md + ROADMAP.md + SPRINT.md + PROJECT.md）。
+
+## 月光酒馆 v2.0 架构
+
+```
+moonlight-tavern/          ← 中央 PM 仓库
+  repos.yml                注册所有 work repo
+  projects/{name}/
+    meta.yaml              项目元信息
+    ROADWAY.md             长期路线图
+    SPRINT.md              当前 Sprint（PR 生命周期驱动状态）
+    PROJECT.md             已完成 Sprint 归档
+
+work-repo/                 ← 实际开发仓库
+  CLAUDE.md                项目上下文 + 指向月光酒馆
+```
 
 ## 步骤
 
-### 1. 探索当前项目
+### 1. 确认月光酒馆路径
 
-运行以下命令了解项目结构：
+从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户：
+> 「月光酒馆（infra-moonlight-tavern）在本地的完整路径是？」
+
+保存到记忆（类型：reference）。
+
+### 2. 收集项目信息
+
+询问用户以下信息并确认：
+1. **项目名**（用作 `projects/{name}/` 的文件夹名，建议英文短横线命名，如 `demo-lumen-core`）
+2. **GitHub repo**（格式：`org/repo-name`）
+3. **项目描述**（一句话，如"后端 + AI Pipeline"）
+
+### 3. 探索当前项目（work repo）
+
+了解当前项目结构用于生成 CLAUDE.md：
 
 ```bash
 ls -la
@@ -13,176 +42,152 @@ ls app/ src/ lib/ 2>/dev/null | head -40
 git log --oneline -5 2>/dev/null || echo "无 git 历史"
 ```
 
-检查是否已存在以下文件（存在则询问用户是否覆盖）：
-- `CLAUDE.md`
-- `SPRINT.md`
-- `PROJECT.md`
-- `ROADMAP.md`
+### 4. 在月光酒馆中创建项目目录和文件
 
-### 2. 向用户确认关键信息
-
-展示探索结果后，询问：
-
-1. **项目是什么**（一句话，如果 README 里有则自动提取）
-2. **当前阶段目标**（第一个 Sprint 要做什么）
-3. **团队规模**（影响 Sprint 容量估算）
-
-### 3. 生成 CLAUDE.md
-
-根据探索结果和用户输入生成，**必须包含以下章节**：
-
-```markdown
-# [项目名] — Agent Context
-
-## 是什么
-[一句话描述：面向谁、解决什么问题]
-
-## 当前状态
-**Sprint [日期]：[本 Sprint 目标一句话]**
-
-## 技术栈
-| 层 | 技术 |
-|----|------|
-[从 pyproject.toml / package.json 等自动填充]
-
-## 关键文件
-[列出主要目录和入口文件]
-
-## 开发约定
-[列出项目特有的约定，如无则写"待补充"]
-
-## 常用命令
-[从 package.json scripts 或 Makefile 提取，如无则写启动命令]
-
-## 项目追踪文件
-| 文件 | 作用 |
-|------|------|
-| `SPRINT.md` | 当前 Sprint 的 Epic/Story/Task，用 `- [x]` 追踪进度 |
-| `PROJECT.md` | 已完成任务的变更历史，只增不改 |
-
-## 自定义命令
-| 命令 | 用途 |
-|------|------|
-| `/ship` | 完成任务后打勾 SPRINT.md，Story 完成则写入 PROJECT.md |
-| `/plan` | 规划下一个 Sprint，生成 Epic/Story/Task 结构写入 SPRINT.md |
-| `/standup` | 生成项目状态快照 |
+**4.1 创建目录**
+```bash
+mkdir -p {月光酒馆路径}/projects/{项目名}
 ```
 
-### 4. 生成 SPRINT.md
-
-```markdown
-# [项目名] — Sprint [开始日期] ～ [结束日期]
-
-> [本 Sprint 目标一句话]
-
-## 总览
-
-| Epic | 主题 | 估算 | 状态 |
-|------|------|------|------|
-| E1 | [用户输入的第一个 Epic] | - | ⬜ |
-
----
-
-## E1 · [Epic 标题]
-
-> 目标：[一句话]
-
-### S1.1 [Story 标题]
-
-- [ ] T1 [任务描述]
-
-**验收**：[可测试的完成条件]
+**4.2 创建 meta.yaml**
+```yaml
+name: {项目名}
+github: {org/repo-name}
+description: "{项目描述}"
+color: "#6366F1"
 ```
 
-### 5. 生成 PROJECT.md
+颜色可让用户从预设中选择（`#4F46E5` `#6366F1` `#059669` `#D97706` `#DC2626`），默认 `#6366F1`。
+
+**4.3 创建 ROADMAP.md**
 
 ```markdown
-# [项目名] — 项目追踪
-
-## 变更记录
-
-| 日期 | 任务 | 变更文件 | 摘要 |
-|------|------|----------|------|
-
-## 待办任务
-
-| # | 任务 | 优先级 | 状态 | 说明 |
-|---|------|--------|------|------|
-| 1 | [Sprint 1 主要目标] | P0 | ⬜ | Sprint [日期] |
-```
-
-### 6. 生成 ROADMAP.md
-
-```markdown
-# [项目名] — 路线图
+# {项目名} — 路线图
 
 ## 当前阶段
 
-### Phase 1 · [阶段名]（进行中）
+### Phase 1 · 基础能力（进行中）
 
-- [ ] [主要目标]
+- [ ] [目标 1：一句话描述第一个 milestone]
 
 ## 后续阶段
 
-### Phase 2 · [阶段名]（待规划）
+### Phase 2 · （待规划）
 
 [待定]
 ```
 
-### 7. 确认并写入
+**4.4 创建 SPRINT.md**
 
-展示所有生成内容，询问用户确认后写入文件。
+```markdown
+# Sprint 1 · {Sprint 目标} — {开始日期} ～ {结束日期}
 
-写入完成后输出：
+## E1 · {第一个 Epic}
 
-```
-✅ 工作流初始化完成
+### S1.1 {Story 标题} (L)
 
-已生成：
-- CLAUDE.md     项目上下文（每次对话自动加载）
-- SPRINT.md     当前 Sprint 任务追踪
-- PROJECT.md    变更历史归档
-- ROADMAP.md    长期规划
+- [ ] T1.1 {任务描述} `owner: {项目名}` `PR: -`
 
-可用命令：
-- /plan     规划下一个 Sprint
-- /ship     完成任务后更新追踪
-- /standup  生成项目状态快照
-
-建议下一步：运行 /plan 来细化当前 Sprint 的 Task 拆解。
+**验收**：可测试的完成条件
 ```
 
-### 8. 同步看板项目
+- Task 编号从 T1.1 开始
+- 每个子任务必须带 `owner:` 和 `PR:` 标签
+- `owner:` 的值必须等于项目名（对应 repos.yml 中的 name）
+- `PR:` 在未开 PR 时为 `-`，其余状态由 PR 生命周期自动推导（**无需手动更新**）
 
-Project-init 执行到这一步表示用户确认了所有文件。此时自动同步到看板项目：
+**4.5 创建 PROJECT.md**
 
-1. **确认看板路径**：从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户该看板项目在本地的完整路径，然后保存到记忆中。
+```markdown
+# {项目名} — 项目归档
 
-2. **创建项目目录**：获取当前项目目录名（`basename $(pwd)`），在看板项目中确保 `projects/{当前目录名}/tasks/` 和 `projects/{当前目录名}/sprints/` 目录存在，不存在则创建。
+## Sprint 归档
 
-3. **创建 meta.yaml**：如果 `projects/{当前目录名}/meta.yaml` 不存在，则创建。询问用户项目描述和团队成员（`git config user.name` 为默认成员），生成：
-   ```yaml
-   name: {当前目录名}
-   description: "{用户输入的项目描述}"
-   color: "#6366F1"
-   members: [{默认成员}]
-   ```
-   颜色可让用户从预设中选择（如 `#4F46E5` `#6366F1` `#059669` `#D97706` `#DC2626`），默认用 `#6366F1`。
+| Sprint | 时间 | Epic 数 | 完成率 | 摘要 |
+|--------|------|---------|--------|------|
+```
 
-4. **创建看板 sprint 文件**：在看板 `sprints/` 目录下检查是否已有当前 Sprint 对应的 sprint 文件，没有则创建一个与 SPRINT.md 对应的 sprint 记录。
+### 5. 注册 work repo 到 repos.yml
 
-5. **告知同步结果**：「已同步看板项目，后续 /plan 和 /ship 将自动创建/更新看板任务。」
+读取 `{月光酒馆路径}/repos.yml`，在 `repos:` 列表末尾追加：
 
-### 9. 提交并推送本地项目文件
+```yaml
+  - name: {项目名}
+    github: {org/repo-name}
+    description: "{项目描述}"
+```
+
+提交并推送变更：
 
 ```bash
-git add CLAUDE.md SPRINT.md PROJECT.md ROADMAP.md && git commit -m "chore: init project workflow files" && git push origin main
+cd {月光酒馆路径}
+git add repos.yml projects/{项目名}/
+git commit -m "chore: register {项目名} in repos.yml"
+# 不自动 push，提示用户手动 push
+```
+
+### 6. 在当前项目（work repo）生成 CLAUDE.md
+
+```markdown
+# {项目名} — Agent Context
+
+## 是什么
+{项目描述}
+
+## 当前状态
+**Sprint 1：[本 Sprint 目标一句话]**
+
+## 项目管理
+月光酒馆看板：`infra-moonlight-tavern`（本地路径见 memory）
+**任务状态由 PR 生命周期实时推导**，my-tasks / sp-close 会自动查询 GitHub PR 状态
+完成需求后**不需要**手动修改月光酒馆的 SPRINT.md
+
+## 技术栈
+{从 pyproject.toml / package.json 等自动填充}
+
+## 关键文件
+{列出主要目录和入口文件}
+
+## 开发约定
+{项目特有约定，如无则写"待补充"}
+
+## 项目管理命令
+| 命令 | 用途 | 操作位置 |
+|------|------|---------|
+| `/plan` | 规划下一个 Sprint | 月光酒馆 projects/{项目名}/SPRINT.md |
+| `/ship` | 开 draft PR（title 以 [TXX.X] 开头） | 当前 work repo |
+| `/sp-close` | Sprint 结束时聚合所有 PR 状态并归档 | 月光酒馆 |
+```
+
+### 7. 输出总结
+
+```
+✅ {项目名} 初始化完成
+
+月光酒馆侧（`infra-moonlight-tavern`）：
+  - projects/{项目名}/meta.yaml
+  - projects/{项目名}/ROADMAP.md
+  - projects/{项目名}/SPRINT.md
+  - projects/{项目名}/PROJECT.md
+  - repos.yml ← 已注册
+
+当前项目侧：
+  - CLAUDE.md
+
+可用命令：
+  - /plan     规划下一个 Sprint（月光酒馆侧）
+  - /ship     开 draft PR 开始任务
+  - /sp-close   Sprint 结束时聚合 PR 状态
+
+记得手动 push 月光酒馆的变更：
+  cd {月光酒馆路径} && git push
 ```
 
 ## 注意
 
-- 如果某个文件已存在且内容完整，跳过不覆盖，只告知用户
-- CLAUDE.md 是最重要的文件，宁可多问一句也不要填错技术栈
-- Task 编号从 T1 开始（PROJECT.md 无历史时）
-- 看板路径只在首次执行 project-init 时需要询问，后续 Group 1 命令会自动从记忆中读取
+- 月光酒馆路径仅在首次执行 `/project-init` 时询问，后续命令从记忆自动读取
 - 「月光酒馆」「酒馆」「月光」均指 `infra-moonlight-tavern` 项目
+- 不要修改已经存在的文件内容（除非用户明确要求）
+- task 编号格式为 T{sprint序号}.{task序号}，如 T1.1、T1.2、T2.1
+- owner 值必须与 repos.yml 中的 name 一致
+- **任务状态由 PR 生命周期自动推导**：完成需求后 /ship 开 PR，PR merged 后 my-tasks / sp-close 会自动反映最新状态，**无需手动更新月光酒馆的 SPRINT.md**

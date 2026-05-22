@@ -1,25 +1,120 @@
-# /sprint-report
+读取月光酒馆中指定项目的 SPRINT.md，结合 GitHub PR 实时状态，生成进度摘要报告。
 
-读取指定 sprint 的所有任务，生成进度摘要报告。
+## v2.0 变化
 
-## 注意事项
+任务定义从独立的 `tasks/*.md` 文件迁移到 `SPRINT.md` 层级结构。本命令改为从 SPRINT.md 中解析全量任务并查询 PR 状态。
 
-- 看板项目名：**infra-moonlight-tavern**（「月光酒馆」「酒馆」「月光」均指该项目）
-- 用户可能不在该目录下执行此命令，需先确认项目在本地的路径并保存到记忆
+## 前置条件
+
+- 已安装 `gh` CLI 并已登录
+- 需要读取月光酒馆中的 SPRINT.md 文件
 
 ## 步骤
 
-1. **确认项目路径（首次运行）**：从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，主动询问用户该项目在本地的完整路径，然后保存到记忆中。
+### 0. 确认月光酒馆路径
 
-2. 询问用户要查看哪个 sprint（列出 `{project-root}/sprints/` 下的文件，默认最新）。
+从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户并保存到记忆。
 
-3. 读取 `{project-root}` 中所有项目的所有任务文件（`projects/*/tasks/*.md`），筛选出 sprint 字段匹配的任务。
+### 1. 选择项目
 
-4. 生成报告，包含：
-   - **整体进度**：各状态任务数量（pending / in_progress / review / done）及百分比
-   - **按项目细分**：每个项目各状态任务数
-   - **按成员细分**：每个 assignee 的任务数和完成情况
-   - **进行中的任务列表**：列出所有 in_progress 和 review 的任务（id + title + assignee）
-   - **风险提示**：超过 3 天未更新 updated 字段的 in_progress 任务
+列出 `{月光酒馆路径}/projects/` 下的目录，让用户选择要查看的项目：
 
-5. 以 Markdown 格式输出报告。
+```bash
+ls {月光酒馆路径}/projects/
+```
+
+也可以直接通过命令参数指定（如 `/sprint-report {项目名}`）。
+
+### 2. 读取 SPRINT.md
+
+```bash
+cat {月光酒馆路径}/projects/{项目名}/SPRINT.md
+```
+
+### 3. 解析全量任务
+
+从 SPRINT.md 中提取所有子任务（`- [ ]` / `- [x]` 行）：
+- Task 编号（Txx.x）
+- 描述
+- checkbox 状态
+- owner
+- PR 标签
+
+### 4. 读取 repos.yml 获取 repo 映射
+
+```bash
+cat {月光酒馆路径}/repos.yml
+```
+
+### 5. 对每个 owner/repo 查询 PR 实时状态
+
+按 owner 分组，对每个唯一 repo 执行一次批量查询：
+
+```bash
+gh pr list --search "[Txx.x] in:title" --repo {org}/{repo} --state all --json number,title,state,isDraft,mergedAt,url
+```
+
+### 6. 推导状态并生成报告
+
+#### 整体进度
+
+| 状态 | 数量 | 占比 |
+|------|------|------|
+| ✅ done | N | X% |
+| 🔵 review | N | X% |
+| 🟡 wip | N | X% |
+| ⚪ todo | N | X% |
+| 🟥 error | N | X% |
+
+#### 按 Epic 细分
+
+每个 Epic 下 Story 的完成情况。
+
+#### 按 owner 细分
+
+每个开发者的任务数和完成情况。
+
+#### 进行中的任务
+
+列出所有 🟡 wip 和 🔵 review 的任务：
+```
+T1.2 收藏API 🔵 review → PR: #23 demo-lumen-core
+```
+
+#### 风险提示
+
+- 超过 3 天仍为 ⚪ todo 的任务
+- 超过 5 天仍为 🟡 wip 的任务
+- 🟥 error 状态的任务（PR closed 未合并）
+
+### 7. 以 Markdown 格式输出
+
+```markdown
+## Sprint 报告 — {项目名}
+
+**Sprint**：{Sprint 标题}
+**报告时间**：{当前时间}
+
+### 整体进度
+✅ done: N | 🔵 review: N | 🟡 wip: N | ⚪ todo: N | 🟥 error: N
+**完成率：X%**
+
+### Epic 详情
+...
+
+### 按成员
+...
+
+### 进行中的任务
+...
+
+### ⚠️ 风险项
+...
+```
+
+## 注意
+
+- 本命令是只读操作，不修改任何文件
+- 需要网络连接以查询 GitHub PR 状态
+- 如果某个 repo 不可达，跳过并提示
+- 「月光酒馆」「酒馆」「月光」均指 `infra-moonlight-tavern` 项目

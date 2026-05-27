@@ -14,51 +14,46 @@ moonlight-tavern/repos.yml  ← work repo 注册表（用于验证 owner 合法�
 
 ## 步骤
 
+所有写入操作均在月光酒馆下对应项目中完成，不动任何 work repo。
+
 ### 0. 确认月光酒馆路径
 
 从记忆中读取 `infra-moonlight-tavern` 的本地路径。如果没有记录，询问用户并保存到记忆（类型：reference）。
 
-### 1. 选择项目
+### 1. 选择项目并唤起 Brainstorming
 
-列出 `{月光酒馆路径}/projects/` 下的目录，让用户选择要规划的项目：
+列出 `{月光酒馆路径}/projects/` 下的目录，让用户选择项目。
+
+选定后，先不做文件读取。直接和用户对齐本 Sprint 要交付什么：
+
+- 本 Sprint 的目标是什么？
+- 涉及哪些功能模块？
+- 优先级和依赖关系？
+
+### 2. 读取上下文
+
+Brainstorming 有初步结论后，再读取文件获取约束：
 
 ```bash
-ls {月光酒馆路径}/projects/
+cat {PROJECT_DIR}/ROADMAP.md        # 当前 Phase 目标和长期规划
+cat {PROJECT_DIR}/SPRINT.md 2>/dev/null || echo "无当前 Sprint"  # 上次未完成 task 是否延续
+cat {月光酒馆路径}/repos.yml           # 合法的 owner 列表
 ```
 
-选定后，设 `PROJECT_DIR={月光酒馆路径}/projects/{项目名}`。
-
-### 2. 读取当前状态
-
-读取以下文件获取上下文：
-
-```bash
-cat {PROJECT_DIR}/ROADMAP.md        # 了解当前 Phase 和长期目标
-cat {PROJECT_DIR}/SPRINT.md 2>/dev/null || echo "无当前 Sprint"
-cat {PROJECT_DIR}/PROJECT.md 2>/dev/null || echo "无归档记录"
-cat {月光酒馆路径}/repos.yml           # 获取有效 owner 列表
-```
-
-### 3. 读取 repos.yml 提取有效 owner
+提取有效 owner 列表：
 
 ```bash
 awk -F': ' '/^  - name:/ {print $2}' {月光酒馆路径}/repos.yml
 ```
 
-### 4. 评估当前 Sprint
+### 3. 评估当前 Sprint 状态
 
 - 统计 SPRINT.md 中 `- [x]` 与 `- [ ]` 的数量
 - 如果还有未完成子任务，询问用户：
   - 延续当前 Sprint（只补新任务）
-  - 或者开启新 Sprint（当前未完成的自动 carry over）
+  - 开启新 Sprint（当前未完成的自动 carry over）
 
-### 5. Brainstorming Sprint 目标
-
-根据 ROADMAP.md 和用户输入，澄清：
-- 本 Sprint 要达成什么目标？
-- 涉及哪些 Epic/Story？
-
-### 6. 提出 Task 拆解
+### 4. 提议 Task 拆解（父+子结构，每个子 task 必带 owner）
 
 #### 格式要求
 
@@ -90,7 +85,7 @@ awk -F': ' '/^  - name:/ {print $2}' {月光酒馆路径}/repos.yml
 
 在提案阶段就完成验证，不要等用户确认后才报错。
 
-### 7. 等待用户确认
+### 5. 用户确认
 
 展示完整计划后询问：
 - 是否调整 Epic/Story 范围？
@@ -98,7 +93,7 @@ awk -F': ' '/^  - name:/ {print $2}' {月光酒馆路径}/repos.yml
 - Sprint 时间范围是否合适？
 - Task 拆分是否合理？
 
-### 8. 确认后写入 SPRINT.md
+### 6. 确认后写入 SPRINT.md
 
 将完整 Sprint 内容写入 `{PROJECT_DIR}/SPRINT.md`。
 
@@ -106,7 +101,7 @@ awk -F': ' '/^  - name:/ {print $2}' {月光酒馆路径}/repos.yml
 - 询问是否覆盖（会将旧内容追加到 PROJECT.md 底部）
 - 或者新建一个 SPRINT 段落追加
 
-### 9. 提交（可选项）
+### 7. 提交（可选项）
 
 ```bash
 cd {月光酒馆路径}
@@ -114,7 +109,9 @@ git add projects/{项目名}/SPRINT.md
 git commit -m "chore: plan sprint {N} for {项目名}"
 ```
 
-提示用户手动 push。不自动 push。
+提示用户手动 push。不自动 push。整个流程不触碰任何 work repo。
+
+## 输出格式示例
 
 ## 输出格式示例
 

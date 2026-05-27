@@ -7,7 +7,7 @@ moonlight-tavern/          ← 中央 PM 仓库
   repos.yml                注册所有 work repo
   projects/{name}/
     meta.yaml              项目元信息
-    ROADWAY.md             长期路线图
+    ROADMAP.md             长期路线图
     SPRINT.md              当前 Sprint（PR 生命周期驱动状态）
     PROJECT.md             已完成 Sprint 归档
 
@@ -52,9 +52,9 @@ mkdir -p {月光酒馆路径}/projects/{项目名}
 **4.2 创建 meta.yaml**
 ```yaml
 name: {项目名}
-github: {org/repo-name}
 description: "{项目描述}"
 color: "#6366F1"
+members: [{当前 git user}]
 ```
 
 颜色可让用户从预设中选择（`#4F46E5` `#6366F1` `#059669` `#D97706` `#DC2626`），默认 `#6366F1`。

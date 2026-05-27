@@ -42,6 +42,13 @@ ls app/ src/ lib/ 2>/dev/null | head -40
 git log --oneline -5 2>/dev/null || echo "无 git 历史"
 ```
 
+如果当前目录尚未初始化 git，帮用户完成初始化。**默认分支为 `main`，远程仓库也使用 `main`**：
+
+```bash
+git init -b main
+git remote add origin <用户提供的远程仓库地址>
+```
+
 ### 4. 在月光酒馆中创建项目目录和文件
 
 **4.1 创建目录**
@@ -123,7 +130,7 @@ members: [{当前 git user}]
 cd {月光酒馆路径}
 git add repos.yml projects/{项目名}/
 git commit -m "chore: register {项目名} in repos.yml"
-# 不自动 push，提示用户手动 push
+git push
 ```
 
 ### 6. 在当前项目（work repo）生成 CLAUDE.md
@@ -142,6 +149,8 @@ git commit -m "chore: register {项目名} in repos.yml"
 **任务状态由 PR 生命周期实时推导**，my-tasks / sp-close 会自动查询 GitHub PR 状态
 完成需求后**不需要**手动修改月光酒馆的 SPRINT.md
 
+**禁止行为**：在 work repo 中使用 Claude 时，**绝对禁止**直接修改月光酒馆中 `SPRINT.md` 的任务勾选状态（如将 `- [ ]` 改为 `- [x]`）。任务状态由 PR 生命周期自动推导，仅 `/sp-close` 和 `/plan` 命令有权修改 SPRINT.md。
+
 ## 技术栈
 {从 pyproject.toml / package.json 等自动填充}
 
@@ -159,7 +168,17 @@ git commit -m "chore: register {项目名} in repos.yml"
 | `/sp-close` | Sprint 结束时聚合所有 PR 状态并归档 | 月光酒馆 |
 ```
 
-### 7. 输出总结
+### 7. 推送 work repo 变更
+
+在当前 work repo 提交并推送 CLAUDE.md：
+
+```bash
+git add CLAUDE.md
+git commit -m "chore: add CLAUDE.md for moonlight-tavern integration"
+git push
+```
+
+### 8. 输出总结
 
 ```
 ✅ {项目名} 初始化完成
@@ -169,18 +188,18 @@ git commit -m "chore: register {项目名} in repos.yml"
   - projects/{项目名}/ROADMAP.md
   - projects/{项目名}/SPRINT.md
   - projects/{项目名}/PROJECT.md
-  - repos.yml ← 已注册
+  - repos.yml ← 已注册并推送
 
 当前项目侧：
-  - CLAUDE.md
+  - CLAUDE.md ← 已提交并推送
 
 可用命令：
+  - /roadmap  基于 PRD 和设计稿规划路线图（下一步）
   - /plan     规划下一个 Sprint（月光酒馆侧）
   - /ship     开 draft PR 开始任务
   - /sp-close   Sprint 结束时聚合 PR 状态
 
-记得手动 push 月光酒馆的变更：
-  cd {月光酒馆路径} && git push
+👉 下一步：执行 `/roadmap` 规划项目路线图，建议把产品文档（PRD）和设计稿一并提供给 Agent。
 ```
 
 ## 注意

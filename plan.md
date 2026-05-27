@@ -101,15 +101,26 @@ awk -F': ' '/^  - name:/ {print $2}' {月光酒馆路径}/repos.yml
 - 询问是否覆盖（会将旧内容追加到 PROJECT.md 底部）
 - 或者新建一个 SPRINT 段落追加
 
-### 7. 提交（可选项）
+### 7. 提交并推送
+
+确认后提交并推送到远程仓库：
 
 ```bash
 cd {月光酒馆路径}
 git add projects/{项目名}/SPRINT.md
 git commit -m "chore: plan sprint {N} for {项目名}"
+git push
 ```
 
-提示用户手动 push。不自动 push。整个流程不触碰任何 work repo。
+整个流程不触碰任何 work repo。
+
+推送完成后提示用户：
+
+```
+✅ Sprint {N} 规划已提交并推送
+
+👉 下一步：在 work repo 中执行 `/ship` 开始开发，Agent 会自动开 draft PR 并关联任务。
+```
 
 ## 输出格式示例
 

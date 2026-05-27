@@ -126,6 +126,8 @@ git log --oneline -20 2>/dev/null
 
 当前阶段：Phase {N} · {阶段名}
 里程碑：X 个待办 · Y 个已完成
+
+👉 下一步：执行 `/plan` 将 ROADMAP 拆解为当前 Sprint 的具体 Task。
 ```
 
 ## 注意

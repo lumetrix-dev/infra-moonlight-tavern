@@ -88,9 +88,10 @@ PR title 格式：
 分支：feat/T1.1-{描述}
 PR：  https://github.com/{org}/{repo}/pull/{N}（draft 🟡）
 
-下一步：
-  - 在分支上完成开发，提交代码
-  - my-tasks 或 sp-close 会自动通过 PR 标题推导任务状态
+👉 下一步：
+  - 在分支上完成开发，提交代码并 push
+  - 执行 `/my-tasks` 随时查看任务进度和 PR 状态
+  - 继续执行 `/ship` 开启下一批任务
 ```
 
 ## 注意

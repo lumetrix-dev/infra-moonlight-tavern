@@ -125,15 +125,24 @@ gh pr list --search "[T1.1] in:title" --repo {github_repo} --state all --json nu
    **状态：已关闭，等待 /plan 开启新 Sprint**
    ```
 
-### 8. 提交
+### 8. 提交并推送
 
 ```bash
 cd {月光酒馆路径}
 git add projects/{项目名}/SPRINT.md projects/{项目名}/PROJECT.md 2>/dev/null
 git commit -m "chore: close sprint {N} for {项目名}"
+git push
 ```
 
-提示用户手动 push。不自动 push。
+推送完成后提示用户：
+
+```
+✅ Sprint {N} 已归档并推送
+
+👉 下一步：执行 `/plan` 开启下一个 Sprint，从 ROADMAP 中拆解新的 Task。
+
+循环 /plan → /ship → /sp-close，直到 ROADMAP 中所有内容完成。
+```
 
 ## 输出示例
 

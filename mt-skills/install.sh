@@ -56,7 +56,8 @@ for s in "${SKILLS[@]}"; do
   mkdir -p "$AGENTS_SKILLS_DIR/$s"
   mkdir -p "$CLAUDE_SKILLS_DIR/$s"
 
-  # Download real file into ~/.agents/skills/
+  # Remove existing file or symlink before downloading to avoid curl following symlinks
+  rm -f "$AGENTS_SKILLS_DIR/$s/SKILL.md"
   curl -fsSL "$RAW_BASE/$s.md" -o "$AGENTS_SKILLS_DIR/$s/SKILL.md"
 
   # ~/.claude/skills/ symlinks into ~/.agents/skills/

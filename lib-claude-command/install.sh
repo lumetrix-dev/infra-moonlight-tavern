@@ -7,23 +7,37 @@ RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH/lib-claude-command"
 COMMANDS_DIR="$HOME/.claude/commands"
 FILES=(mt-plan.md mt-ship.md mt-project-init.md mt-my-tasks.md mt-sprint-report.md mt-roadmap.md mt-sp-close.md mt-update.md .mt-version)
 
-# Detect local vs remote mode
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd)"
-if [ -f "$SCRIPT_DIR/mt-plan.md" ]; then
-  MODE="local"
-else
-  MODE="remote"
+# Version check
+LOCAL_VERSION=""
+if [ -f "$COMMANDS_DIR/.mt-version" ]; then
+  LOCAL_VERSION=$(cat "$COMMANDS_DIR/.mt-version")
 fi
 
-echo "Installing Moonlight Tavern Claude commands ($MODE)..."
+REMOTE_VERSION=$(curl -fsSL "$RAW_BASE/.mt-version" 2>/dev/null)
+if [ -z "$REMOTE_VERSION" ]; then
+  echo "❌ Could not reach GitHub. Check your network and try again."
+  exit 1
+fi
+
+if [ -z "$LOCAL_VERSION" ]; then
+  echo "Moonlight Tavern commands not found. Proceed with fresh install (v$REMOTE_VERSION)?"
+  read -rp "[Y/n] " confirm </dev/tty
+  [[ "$confirm" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
+elif [ "$LOCAL_VERSION" = "$REMOTE_VERSION" ]; then
+  echo "Already up to date (v$LOCAL_VERSION). Reinstall anyway?"
+  read -rp "[y/N] " confirm </dev/tty
+  [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 0; }
+else
+  echo "Update available: v$LOCAL_VERSION → v$REMOTE_VERSION"
+  read -rp "Upgrade? [Y/n] " confirm </dev/tty
+  [[ "$confirm" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
+fi
+
+echo "Installing Moonlight Tavern Claude commands..."
 mkdir -p "$COMMANDS_DIR"
 
 for f in "${FILES[@]}"; do
-  if [ "$MODE" = "local" ]; then
-    cp "$SCRIPT_DIR/$f" "$COMMANDS_DIR/$f"
-  else
-    curl -fsSL "$RAW_BASE/$f" -o "$COMMANDS_DIR/$f"
-  fi
+  curl -fsSL "$RAW_BASE/$f" -o "$COMMANDS_DIR/$f"
   echo "  ✓ $f"
 done
 

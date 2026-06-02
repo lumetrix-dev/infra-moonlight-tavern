@@ -84,7 +84,7 @@ PR is merged          →  done   ✅
 PR is closed unmerged →  error  🟥
 ```
 
-Status is derived at runtime by the SPA via GitHub API, or can be pre-populated statically in `data.json`.
+Status is pre-computed by `aggregate-data.mjs` (using the `gh` CLI) and written into `data.json`. The SPA reads `data.json` statically — it makes no GitHub API calls.
 
 ---
 
@@ -93,7 +93,7 @@ Status is derived at runtime by the SPA via GitHub API, or can be pre-populated 
 1. **Write**: Developer or PM updates `SPRINT.md` via Claude Code commands (`/mt-plan`, `/mt-ship`, etc.), commits and pushes
 2. **Aggregate**: CI (or local `npm run build`) runs `aggregate-data.mjs`, parses `SPRINT.md` and `repos.yml`, outputs `data.json`
 3. **Display**: SPA reads `data.json` and renders Sprint view or Kanban view per project
-4. **Live PR status** (optional): With a GitHub Token configured, the SPA queries PR status via REST API and overlays live data
+4. **Display**: SPA reads `data.json` and renders Sprint view or Kanban view per project
 
 ---
 
@@ -175,7 +175,6 @@ PR merged
 Open the board
   → Sprint view: epic progress → story progress → sub-task PR status
   → Kanban view (legacy projects): 5-column board
-  → Set a token to get live PR status
 ```
 
 ---

@@ -1,0 +1,4 @@
+name: demo-api-server
+description: "Node.js REST API server"
+color: "#10B981"
+members: [carol, dave]

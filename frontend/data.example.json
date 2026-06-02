@@ -1,0 +1,772 @@
+{
+  "repos": {
+    "demo-web-app": {
+      "github": "your-org/demo-web-app",
+      "description": "React TypeScript dashboard frontend"
+    },
+    "demo-api-server": {
+      "github": "your-org/demo-api-server",
+      "description": "Node.js REST API server"
+    }
+  },
+  "projects": {
+    "demo-web-app": {
+      "name": "demo-web-app",
+      "description": "React TypeScript dashboard frontend",
+      "color": "#6366F1",
+      "members": ["alice", "bob"]
+    },
+    "demo-api-server": {
+      "name": "demo-api-server",
+      "description": "Node.js REST API server",
+      "color": "#10B981",
+      "members": ["carol", "dave"]
+    }
+  },
+  "tasks": [],
+  "sprints": {},
+  "sprint_data": {
+    "demo-web-app": {
+      "name": "S2 - Auth & Dashboard",
+      "start": "2026-05-26",
+      "end": "2026-06-08",
+      "epics": [
+        {
+          "id": "E1",
+          "title": "User Authentication",
+          "goal": "Complete login/register flow with JWT refresh",
+          "stories": [
+            {
+              "id": "S1.1",
+              "title": "Auth Pages",
+              "size": "M",
+              "status": "done",
+              "tasks": [
+                {
+                  "id": "T1.1",
+                  "title": "Login page with form validation",
+                  "owner": "demo-web-app",
+                  "pr": "#5",
+                  "prUrl": "https://github.com/your-org/demo-web-app/pull/5",
+                  "prTitle": "[T1.1] feat: login page with Zod form validation",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T1.2",
+                  "title": "Registration page with email verification",
+                  "owner": "demo-web-app",
+                  "pr": "#6",
+                  "prUrl": "https://github.com/your-org/demo-web-app/pull/6",
+                  "prTitle": "[T1.2] feat: registration + email verification flow",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T1.3",
+                  "title": "JWT token storage and silent refresh",
+                  "owner": "demo-web-app",
+                  "pr": "#7",
+                  "prUrl": "https://github.com/your-org/demo-web-app/pull/7",
+                  "prTitle": "[T1.3] feat: JWT storage + silent refresh via interceptor",
+                  "status": "done",
+                  "_done": true
+                }
+              ]
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T1.1",
+              "title": "Login page with form validation",
+              "owner": "demo-web-app",
+              "pr": "#5",
+              "prUrl": "https://github.com/your-org/demo-web-app/pull/5",
+              "prTitle": "[T1.1] feat: login page with Zod form validation",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T1.2",
+              "title": "Registration page with email verification",
+              "owner": "demo-web-app",
+              "pr": "#6",
+              "prUrl": "https://github.com/your-org/demo-web-app/pull/6",
+              "prTitle": "[T1.2] feat: registration + email verification flow",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T1.3",
+              "title": "JWT token storage and silent refresh",
+              "owner": "demo-web-app",
+              "pr": "#7",
+              "prUrl": "https://github.com/your-org/demo-web-app/pull/7",
+              "prTitle": "[T1.3] feat: JWT storage + silent refresh via interceptor",
+              "status": "done",
+              "_done": true
+            }
+          ]
+        },
+        {
+          "id": "E2",
+          "title": "Dashboard Layout",
+          "goal": "",
+          "stories": [
+            {
+              "id": "S2.1",
+              "title": "Navigation & Shell",
+              "size": "L",
+              "status": "wip",
+              "tasks": [
+                {
+                  "id": "T2.1",
+                  "title": "Sidebar navigation with route guards",
+                  "owner": "demo-web-app",
+                  "pr": "#8",
+                  "prUrl": "https://github.com/your-org/demo-web-app/pull/8",
+                  "prTitle": "[T2.1] feat: sidebar nav + auth route guards",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T2.2",
+                  "title": "Analytics overview cards (users, revenue, activity)",
+                  "owner": "demo-web-app",
+                  "pr": "#9",
+                  "prUrl": "https://github.com/your-org/demo-web-app/pull/9",
+                  "prTitle": "[T2.2] feat: analytics overview cards",
+                  "status": "review",
+                  "_done": false
+                },
+                {
+                  "id": "T2.3",
+                  "title": "Responsive layout for mobile viewports",
+                  "owner": "demo-web-app",
+                  "pr": null,
+                  "status": "todo",
+                  "_done": false
+                }
+              ]
+            },
+            {
+              "id": "S2.2",
+              "title": "Data Tables",
+              "size": "M",
+              "status": "todo",
+              "tasks": [
+                {
+                  "id": "T3.1",
+                  "title": "User management table with search and pagination",
+                  "owner": "demo-web-app",
+                  "pr": null,
+                  "status": "todo",
+                  "_done": false
+                },
+                {
+                  "id": "T3.2",
+                  "title": "Export to CSV feature",
+                  "owner": "demo-web-app",
+                  "pr": null,
+                  "status": "todo",
+                  "_done": false
+                }
+              ]
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T2.1",
+              "title": "Sidebar navigation with route guards",
+              "owner": "demo-web-app",
+              "pr": "#8",
+              "prUrl": "https://github.com/your-org/demo-web-app/pull/8",
+              "prTitle": "[T2.1] feat: sidebar nav + auth route guards",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T2.2",
+              "title": "Analytics overview cards (users, revenue, activity)",
+              "owner": "demo-web-app",
+              "pr": "#9",
+              "prUrl": "https://github.com/your-org/demo-web-app/pull/9",
+              "prTitle": "[T2.2] feat: analytics overview cards",
+              "status": "review",
+              "_done": false
+            },
+            {
+              "id": "T2.3",
+              "title": "Responsive layout for mobile viewports",
+              "owner": "demo-web-app",
+              "pr": null,
+              "status": "todo",
+              "_done": false
+            },
+            {
+              "id": "T3.1",
+              "title": "User management table with search and pagination",
+              "owner": "demo-web-app",
+              "pr": null,
+              "status": "todo",
+              "_done": false
+            },
+            {
+              "id": "T3.2",
+              "title": "Export to CSV feature",
+              "owner": "demo-web-app",
+              "pr": null,
+              "status": "todo",
+              "_done": false
+            }
+          ]
+        }
+      ]
+    },
+    "demo-api-server": {
+      "name": "S2 - Core API Endpoints",
+      "start": "2026-05-26",
+      "end": "2026-06-08",
+      "epics": [
+        {
+          "id": "E1",
+          "title": "User Resource",
+          "goal": "Complete CRUD endpoints for user management with input validation",
+          "stories": [
+            {
+              "id": "S1.1",
+              "title": "User CRUD",
+              "size": "M",
+              "status": "done",
+              "tasks": [
+                {
+                  "id": "T1.1",
+                  "title": "GET /users — paginated list with filters",
+                  "owner": "demo-api-server",
+                  "pr": "#12",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/12",
+                  "prTitle": "[T1.1][T1.2] feat: GET + POST /users with Zod validation",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T1.2",
+                  "title": "POST /users — create with Zod validation",
+                  "owner": "demo-api-server",
+                  "pr": "#12",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/12",
+                  "prTitle": "[T1.1][T1.2] feat: GET + POST /users with Zod validation",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T1.3",
+                  "title": "PATCH /users/:id — partial update",
+                  "owner": "demo-api-server",
+                  "pr": "#13",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/13",
+                  "prTitle": "[T1.3][T1.4] feat: PATCH + soft DELETE /users/:id",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T1.4",
+                  "title": "DELETE /users/:id — soft delete",
+                  "owner": "demo-api-server",
+                  "pr": "#13",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/13",
+                  "prTitle": "[T1.3][T1.4] feat: PATCH + soft DELETE /users/:id",
+                  "status": "done",
+                  "_done": true
+                }
+              ]
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T1.1",
+              "title": "GET /users — paginated list with filters",
+              "owner": "demo-api-server",
+              "pr": "#12",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/12",
+              "prTitle": "[T1.1][T1.2] feat: GET + POST /users with Zod validation",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T1.2",
+              "title": "POST /users — create with Zod validation",
+              "owner": "demo-api-server",
+              "pr": "#12",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/12",
+              "prTitle": "[T1.1][T1.2] feat: GET + POST /users with Zod validation",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T1.3",
+              "title": "PATCH /users/:id — partial update",
+              "owner": "demo-api-server",
+              "pr": "#13",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/13",
+              "prTitle": "[T1.3][T1.4] feat: PATCH + soft DELETE /users/:id",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T1.4",
+              "title": "DELETE /users/:id — soft delete",
+              "owner": "demo-api-server",
+              "pr": "#13",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/13",
+              "prTitle": "[T1.3][T1.4] feat: PATCH + soft DELETE /users/:id",
+              "status": "done",
+              "_done": true
+            }
+          ]
+        },
+        {
+          "id": "E2",
+          "title": "Middleware",
+          "goal": "",
+          "stories": [
+            {
+              "id": "S2.1",
+              "title": "Auth Middleware",
+              "size": "S",
+              "status": "done",
+              "tasks": [
+                {
+                  "id": "T2.1",
+                  "title": "JWT verification middleware",
+                  "owner": "demo-api-server",
+                  "pr": "#14",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/14",
+                  "prTitle": "[T2.1][T2.2] feat: JWT middleware + RBAC",
+                  "status": "done",
+                  "_done": true
+                },
+                {
+                  "id": "T2.2",
+                  "title": "Role-based access control (RBAC)",
+                  "owner": "demo-api-server",
+                  "pr": "#14",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/14",
+                  "prTitle": "[T2.1][T2.2] feat: JWT middleware + RBAC",
+                  "status": "done",
+                  "_done": true
+                }
+              ]
+            },
+            {
+              "id": "S2.2",
+              "title": "Security & Observability",
+              "size": "S",
+              "status": "wip",
+              "tasks": [
+                {
+                  "id": "T3.1",
+                  "title": "Rate limiting on auth endpoints (100 req/min per IP)",
+                  "owner": "demo-api-server",
+                  "pr": "#15",
+                  "prUrl": "https://github.com/your-org/demo-api-server/pull/15",
+                  "prTitle": "[T3.1] feat: per-IP rate limiting on auth endpoints",
+                  "status": "wip",
+                  "_done": false
+                },
+                {
+                  "id": "T3.2",
+                  "title": "Structured request logging (method, path, status, duration)",
+                  "owner": "demo-api-server",
+                  "pr": null,
+                  "status": "todo",
+                  "_done": false
+                }
+              ]
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T2.1",
+              "title": "JWT verification middleware",
+              "owner": "demo-api-server",
+              "pr": "#14",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/14",
+              "prTitle": "[T2.1][T2.2] feat: JWT middleware + RBAC",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T2.2",
+              "title": "Role-based access control (RBAC)",
+              "owner": "demo-api-server",
+              "pr": "#14",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/14",
+              "prTitle": "[T2.1][T2.2] feat: JWT middleware + RBAC",
+              "status": "done",
+              "_done": true
+            },
+            {
+              "id": "T3.1",
+              "title": "Rate limiting on auth endpoints (100 req/min per IP)",
+              "owner": "demo-api-server",
+              "pr": "#15",
+              "prUrl": "https://github.com/your-org/demo-api-server/pull/15",
+              "prTitle": "[T3.1] feat: per-IP rate limiting on auth endpoints",
+              "status": "wip",
+              "_done": false
+            },
+            {
+              "id": "T3.2",
+              "title": "Structured request logging (method, path, status, duration)",
+              "owner": "demo-api-server",
+              "pr": null,
+              "status": "todo",
+              "_done": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "archive_data": {
+    "demo-web-app": [
+      {
+        "name": "S1 - Project Setup",
+        "start": "2026-05-12",
+        "end": "2026-05-25",
+        "epics": [
+          {
+            "id": "E1",
+            "title": "Development Environment",
+            "goal": "",
+            "stories": [
+              {
+                "id": "S1.1",
+                "title": "Project Scaffolding",
+                "size": "S",
+                "status": "done",
+                "tasks": [
+                  {
+                    "id": "T1.1",
+                    "title": "Initialize Vite + React + TypeScript project",
+                    "owner": "demo-web-app",
+                    "pr": "#1",
+                    "prUrl": "https://github.com/your-org/demo-web-app/pull/1",
+                    "prTitle": "[T1.1] chore: init Vite + React + TS + CI pipeline",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T1.2",
+                    "title": "Configure ESLint, Prettier, Husky",
+                    "owner": "demo-web-app",
+                    "pr": "#2",
+                    "prUrl": "https://github.com/your-org/demo-web-app/pull/2",
+                    "prTitle": "[T1.2] chore: ESLint + Prettier + Husky pre-commit",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T1.3",
+                    "title": "Set up Storybook for component development",
+                    "owner": "demo-web-app",
+                    "pr": "#3",
+                    "prUrl": "https://github.com/your-org/demo-web-app/pull/3",
+                    "prTitle": "[T1.3] chore: add Storybook 8 with autodocs",
+                    "status": "done",
+                    "_done": true
+                  }
+                ]
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T1.1",
+                "title": "Initialize Vite + React + TypeScript project",
+                "owner": "demo-web-app",
+                "pr": "#1",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T1.2",
+                "title": "Configure ESLint, Prettier, Husky",
+                "owner": "demo-web-app",
+                "pr": "#2",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T1.3",
+                "title": "Set up Storybook for component development",
+                "owner": "demo-web-app",
+                "pr": "#3",
+                "status": "done",
+                "_done": true
+              }
+            ]
+          },
+          {
+            "id": "E2",
+            "title": "Design System",
+            "goal": "",
+            "stories": [
+              {
+                "id": "S2.1",
+                "title": "Base Components",
+                "size": "M",
+                "status": "done",
+                "tasks": [
+                  {
+                    "id": "T2.1",
+                    "title": "Color tokens and typography scale",
+                    "owner": "demo-web-app",
+                    "pr": "#4",
+                    "prUrl": "https://github.com/your-org/demo-web-app/pull/4",
+                    "prTitle": "[T2.1][T2.2] feat: design tokens + base component library",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T2.2",
+                    "title": "Button, Input, Card, Badge components",
+                    "owner": "demo-web-app",
+                    "pr": "#4",
+                    "prUrl": "https://github.com/your-org/demo-web-app/pull/4",
+                    "prTitle": "[T2.1][T2.2] feat: design tokens + base component library",
+                    "status": "done",
+                    "_done": true
+                  }
+                ]
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T2.1",
+                "title": "Color tokens and typography scale",
+                "owner": "demo-web-app",
+                "pr": "#4",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T2.2",
+                "title": "Button, Input, Card, Badge components",
+                "owner": "demo-web-app",
+                "pr": "#4",
+                "status": "done",
+                "_done": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "demo-api-server": [
+      {
+        "name": "S1 - Infrastructure",
+        "start": "2026-05-12",
+        "end": "2026-05-25",
+        "epics": [
+          {
+            "id": "E1",
+            "title": "Project Setup",
+            "goal": "",
+            "stories": [
+              {
+                "id": "S1.1",
+                "title": "Scaffolding",
+                "size": "S",
+                "status": "done",
+                "tasks": [
+                  {
+                    "id": "T1.1",
+                    "title": "Initialize Node.js + Express + TypeScript project",
+                    "owner": "demo-api-server",
+                    "pr": "#1",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/1",
+                    "prTitle": "[T1.1] chore: init Express + TS + CI",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T1.2",
+                    "title": "Configure ESLint, Prettier, Husky",
+                    "owner": "demo-api-server",
+                    "pr": "#2",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/2",
+                    "prTitle": "[T1.2] chore: ESLint + Prettier + Husky",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T1.3",
+                    "title": "Set up Jest + Supertest for integration tests",
+                    "owner": "demo-api-server",
+                    "pr": "#3",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/3",
+                    "prTitle": "[T1.3] chore: Jest + Supertest integration test setup",
+                    "status": "done",
+                    "_done": true
+                  }
+                ]
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T1.1",
+                "title": "Initialize Node.js + Express + TypeScript project",
+                "owner": "demo-api-server",
+                "pr": "#1",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T1.2",
+                "title": "Configure ESLint, Prettier, Husky",
+                "owner": "demo-api-server",
+                "pr": "#2",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T1.3",
+                "title": "Set up Jest + Supertest for integration tests",
+                "owner": "demo-api-server",
+                "pr": "#3",
+                "status": "done",
+                "_done": true
+              }
+            ]
+          },
+          {
+            "id": "E2",
+            "title": "Database Layer",
+            "goal": "",
+            "stories": [
+              {
+                "id": "S2.1",
+                "title": "PostgreSQL + Prisma",
+                "size": "M",
+                "status": "done",
+                "tasks": [
+                  {
+                    "id": "T2.1",
+                    "title": "Prisma schema: User, Session, RefreshToken",
+                    "owner": "demo-api-server",
+                    "pr": "#4",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/4",
+                    "prTitle": "[T2.1] feat: Prisma schema + initial migration",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T2.2",
+                    "title": "Database migrations and seed script",
+                    "owner": "demo-api-server",
+                    "pr": "#5",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/5",
+                    "prTitle": "[T2.2] feat: migration scripts + seed with 10 test users",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T2.3",
+                    "title": "Repository pattern wrapper over Prisma client",
+                    "owner": "demo-api-server",
+                    "pr": "#6",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/6",
+                    "prTitle": "[T2.3] feat: UserRepository + unit tests",
+                    "status": "done",
+                    "_done": true
+                  }
+                ]
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T2.1",
+                "title": "Prisma schema: User, Session, RefreshToken",
+                "owner": "demo-api-server",
+                "pr": "#4",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T2.2",
+                "title": "Database migrations and seed script",
+                "owner": "demo-api-server",
+                "pr": "#5",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T2.3",
+                "title": "Repository pattern wrapper over Prisma client",
+                "owner": "demo-api-server",
+                "pr": "#6",
+                "status": "done",
+                "_done": true
+              }
+            ]
+          },
+          {
+            "id": "E3",
+            "title": "Health & Config",
+            "goal": "",
+            "stories": [
+              {
+                "id": "S3.1",
+                "title": "Health Check & Config",
+                "size": "S",
+                "status": "done",
+                "tasks": [
+                  {
+                    "id": "T3.1",
+                    "title": "GET /health — liveness + readiness probe",
+                    "owner": "demo-api-server",
+                    "pr": "#7",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/7",
+                    "prTitle": "[T3.1] feat: GET /health with DB connectivity check",
+                    "status": "done",
+                    "_done": true
+                  },
+                  {
+                    "id": "T3.2",
+                    "title": "Environment config validation with Zod",
+                    "owner": "demo-api-server",
+                    "pr": "#8",
+                    "prUrl": "https://github.com/your-org/demo-api-server/pull/8",
+                    "prTitle": "[T3.2] feat: Zod env validation, fail-fast on startup",
+                    "status": "done",
+                    "_done": true
+                  }
+                ]
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T3.1",
+                "title": "GET /health — liveness + readiness probe",
+                "owner": "demo-api-server",
+                "pr": "#7",
+                "status": "done",
+                "_done": true
+              },
+              {
+                "id": "T3.2",
+                "title": "Environment config validation with Zod",
+                "owner": "demo-api-server",
+                "pr": "#8",
+                "status": "done",
+                "_done": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "_generated": "2026-06-01T00:00:00.000Z"
+}

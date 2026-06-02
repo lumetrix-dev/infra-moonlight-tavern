@@ -1,0 +1,10 @@
+# work repo registry
+# name matches the folder under projects/, defaults to the GitHub repo name.
+# description is optional, shown on the dashboard.
+repos:
+  - name: demo-web-app
+    github: your-org/demo-web-app
+    description: "React TypeScript dashboard frontend"
+  - name: demo-api-server
+    github: your-org/demo-api-server
+    description: "Node.js REST API server"

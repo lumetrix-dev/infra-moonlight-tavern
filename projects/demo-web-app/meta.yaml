@@ -1,0 +1,4 @@
+name: demo-web-app
+description: "React TypeScript dashboard frontend"
+color: "#6366F1"
+members: [alice, bob]

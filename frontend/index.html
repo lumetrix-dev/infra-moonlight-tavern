@@ -931,7 +931,8 @@
     // ── Data loading ───────────────────────────────────────────────────
     async function loadApp() {
       try {
-        const res = await fetch('/data.json?v=' + Date.now())
+        const base = document.querySelector('base')?.href || location.href
+        const res = await fetch(new URL('data.json?v=' + Date.now(), base))
         if (!res.ok) throw new Error('Failed to load data.json')
         DATA = await res.json()
         const projects = Object.keys(DATA.projects || {})

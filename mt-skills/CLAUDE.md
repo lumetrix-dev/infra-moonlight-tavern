@@ -2,13 +2,13 @@
 
 ## What is this
 
-A collection of Claude Code skills implementing the Moonlight Tavern-driven Sprint development workflow. Every `.md` file (except `README.md`) is a Claude Code skill. After being installed to `~/.claude/skills/` via `install.sh`, they are globally available.
+A collection of agent skills implementing the Moonlight Tavern-driven Sprint development workflow. Every `.md` file (except `README.md`) is a skill. After being installed via `install.sh`, they are globally available in Claude Code, Gemini CLI, Copilot, Codex, and any other agent that reads from `~/.agents/skills/`.
 
 ## Project Structure
 
 ```
 mt-skills/
-├── install.sh                 Install script — copies skill .md files to ~/.claude/skills/
+├── install.sh                 Install script — symlinks (local) or downloads (remote) to ~/.agents/skills/ + ~/.claude/skills/
 ├── .mt-version                 Version file
 ├── README.md                  Project overview + full usage workflow
 ├── mt-roadmap.md              /mt-roadmap — Plan the roadmap (Moonlight Tavern side)
@@ -47,5 +47,7 @@ mt-skills/
 curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/mt-skills/install.sh | bash
 ```
 
-Takes effect after restarting Claude Code. To update, re-run install.sh to overwrite.
+Takes effect after restarting your agent/IDE. To update, re-run install.sh.
+
+**Local development (symlink mode):** If you run install.sh directly from the repo checkout, it creates symlinks instead of downloading. Edits to `mt-skills/*.md` take effect immediately — no reinstall needed.
 

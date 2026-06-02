@@ -90,10 +90,9 @@ Status is pre-computed by `aggregate-data.mjs` (using the `gh` CLI) and written 
 
 ## Data Flow
 
-1. **Write**: Developer or PM updates `SPRINT.md` via Claude Code commands (`/mt-plan`, `/mt-ship`, etc.), commits and pushes
+1. **Write**: Developer or PM updates `SPRINT.md` via Claude Code skills (`/mt-plan`, `/mt-ship`, etc.), commits and pushes
 2. **Aggregate**: CI (or local `npm run build`) runs `aggregate-data.mjs`, parses `SPRINT.md` and `repos.yml`, outputs `data.json`
 3. **Display**: SPA reads `data.json` and renders Sprint view or Kanban view per project
-4. **Display**: SPA reads `data.json` and renders Sprint view or Kanban view per project
 
 ---
 

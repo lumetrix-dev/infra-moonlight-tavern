@@ -1,6 +1,6 @@
 ---
 name: mt-update
-description: [Moonlight Tavern] Check for command updates by comparing the local version against the remote version. [Work Repo side]
+description: [Moonlight Tavern] Check for skill updates by comparing the local version against the remote version. [Work Repo side]
 ---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
@@ -36,7 +36,7 @@ If already up to date:
 If a new version is available, prompt the user in a conversational tone:
 
 ```
-🔍 Command version check
+🔍 Skill version check
 
 Local version:  2.0.0
 Remote version: 2.1.0

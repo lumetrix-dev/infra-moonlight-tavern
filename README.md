@@ -174,7 +174,7 @@ infra-moonlight-tavern/
 │   └── package.json
 └── mt-skills/
     ├── install.sh               # command installer
-    └── mt-*.md                  # Claude Code slash commands
+    └── mt-*.md                  # Claude Code skills
 ```
 
 **Work Repo**

@@ -1,11 +1,11 @@
-# Moonlight Tavern — Claude Commands
+# Moonlight Tavern — Claude Skills
 
-Installation, command reference, and usage workflow are documented in the [project README](../README.md).
+Installation, skill reference, and usage workflow are documented in the [project README](../README.md).
 
 ## Quick Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/lib-claude-command/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/mt-skills/install.sh | bash
 ```
 
 Copy the example data file and rename it:

@@ -12,7 +12,7 @@ Lightweight multi-repo project management. PR = status. Git = database. Zero bac
 | `projects/{name}/PROJECT.md` | Completed Sprint archive |
 | `frontend/scripts/aggregate-data.mjs` | Parses SPRINT.md + fetches PR statuses → `data.json` |
 | `frontend/index.html` | SPA dashboard (vanilla JS, no build) |
-| `mt-skills/` | Claude Code slash commands + installer |
+| `mt-skills/` | Claude Code skills + installer |
 
 ## SPRINT.md Format
 

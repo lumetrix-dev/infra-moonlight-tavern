@@ -179,7 +179,7 @@ After completing a task, you do **not** need to manually update SPRINT.md in Moo
 
 **Prohibited behavior**: When using Claude in the work repo, **never directly modify task checkbox states in Moonlight Tavern's `SPRINT.md`** (e.g. changing `- [ ]` to `- [x]`). Task status is automatically derived from the PR lifecycle; only `/mt-sp-close` and `/mt-plan` commands are authorized to modify SPRINT.md.
 
-**Command update check**: Before the first interaction each day, automatically run `/mt-update` to check for new command versions.
+**Skill update check**: Before the first interaction each day, automatically run `/mt-update` to check for new skill versions.
 
 ## Tech Stack
 {auto-populated from pyproject.toml / package.json, etc.}
@@ -190,8 +190,8 @@ After completing a task, you do **not** need to manually update SPRINT.md in Moo
 ## Development Conventions
 {project-specific conventions, or "TBD" if none}
 
-## Project Management Commands
-| Command | Purpose | Location |
+## Project Management Skills
+| Skill | Purpose | Location |
 |---------|---------|---------|
 | `/mt-plan` | Plan the next Sprint | Moonlight Tavern projects/{project-name}/SPRINT.md |
 | `/mt-ship` | Open a draft PR (title starts with [TXX.X]) | Current work repo |
@@ -223,7 +223,7 @@ Moonlight Tavern side (`infra-moonlight-tavern`):
 Current project side:
   - CLAUDE.md ← committed and pushed
 
-Available commands:
+Available skills:
   - /mt-roadmap  Plan the roadmap based on PRD and designs (next step)
   - /mt-plan     Plan the next Sprint (Moonlight Tavern side)
   - /mt-ship     Open a draft PR to start a task
@@ -234,7 +234,7 @@ Available commands:
 
 ## Notes
 
-- The Moonlight Tavern path is only asked for the first time `/mt-project-init` is run; subsequent commands read it automatically from memory
+- The Moonlight Tavern path is only asked for the first time `/mt-project-init` is run; subsequent skills read it automatically from memory
 - "Moonlight Tavern", "tavern", and "moonlight" all refer to the `infra-moonlight-tavern` project
 - Do not modify existing file contents (unless the user explicitly requests it)
 - Task numbering format: T{sprint-number}.{task-number}, e.g. T1.1, T1.2, T2.1

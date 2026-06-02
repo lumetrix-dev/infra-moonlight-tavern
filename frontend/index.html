@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moonlight Tavern · Project Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-surface: #1a1a2e;
+      --bg-card: #1e1e32;
+      --bg-hover: #262640;
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-dark: #8b6914;
+      --text-primary: #e8dcc8;
+      --text-secondary: #9a8b7a;
+      --text-muted: #6b5d4e;
+      --border-gold: #2a2020;
+      --border-light: #3a3050;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --shadow-card: 0 2px 12px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(201, 168, 76, .08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      background: var(--bg-primary);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(201, 168, 76, .03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(139, 26, 26, .03) 0%, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(180deg, #14141e 0%, #0e0e16 100%);
+      border-bottom: 1px solid var(--gold-dark);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .3;
+    }
+
+    header h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 16px;
+      color: #f0e6b0;
+      margin-right: auto;
+      letter-spacing: .12em;
+      text-shadow: 0 0 16px rgba(201, 168, 76, .4);
+    }
+
+    .project-select {
+      background: rgba(26, 26, 46, .6);
+      border: 1px solid var(--border-light);
+      color: var(--gold-light);
+      padding: 5px 14px;
+      font-size: 12px;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+      letter-spacing: .08em;
+      outline: none;
+      min-width: 180px;
+    }
+
+    .project-select:hover,
+    .project-select:focus {
+      border-color: var(--gold-dark);
+    }
+
+    .project-select option {
+      background: #1a1a2e;
+      color: var(--text-primary);
+    }
+
+    .settings-btn {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold);
+    }
+
+    .settings-btn:first-child {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .project-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .08em;
+      margin: 0 0 16px 0;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, #161622 0%, #12121a 100%);
+      border: 1px solid var(--border-light);
+    }
+
+    .project-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .project-hdr-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: .06em;
+    }
+
+    .project-hdr-title a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+
+    .project-hdr-title a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    .project-hdr-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* Main */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 24px 64px;
+    }
+
+    /* Project card */
+    .project-card {
+      background: linear-gradient(180deg, #161622 0%, #12121a 100%);
+      border: 1px solid var(--border-light);
+      margin-bottom: 24px;
+    }
+
+    .project-card .project-section-title {
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 0;
+    }
+
+    /* Sprint card (inner, one per sprint) */
+    .sprint-card {
+      margin: 0;
+    }
+
+    .sprint-card+.sprint-card {
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* Sprint sprint-bar */
+    .sprint-bar-wrap {
+      padding: 16px 20px;
+    }
+
+    .sprint-bar-top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sprint-toggle {
+      font-size: 14px;
+      color: var(--text-muted);
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sprint-name {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: .06em;
+    }
+
+    .sprint-pct {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .sprint-bar {
+      height: 6px;
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+
+    .sprint-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      transition: width .5s;
+    }
+
+    .sprint-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .sprint-archived {
+      opacity: .55;
+    }
+
+    .sprint-archived:hover {
+      opacity: 1;
+      transition: opacity .3s;
+    }
+
+    .hide-done-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--gold-light);
+      user-select: none;
+      margin: 12px 0;
+    }
+
+    .hide-done-toggle input[type=checkbox] {
+      accent-color: var(--gold-dark);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .help-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 16px;
+    }
+
+    .help-table td {
+      padding: 4px 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .help-table td:first-child {
+      width: 32px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .help-table td:nth-child(2) {
+      width: 72px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .help-modal h3 {
+      margin: 16px 0 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: .08em;
+    }
+
+    .help-modal p {
+      margin: 4px 0 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .help-modal code {
+      background: rgba(0, 0, 0, .3);
+      padding: 1px 5px;
+      border: 1px solid var(--border-light);
+      font-size: 12px;
+      color: var(--gold-light);
+    }
+
+    /* Epic */
+    .epic {
+      padding-inline: 20px;
+      margin-bottom: 16px;
+    }
+
+    .epic-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      margin-bottom: 0;
+      background: rgba(26, 26, 46, .6);
+      border: 1px solid var(--border-light);
+      border-bottom: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .epic-toggle {
+      font-size: 14px;
+      color: var(--text-muted);
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .epic-id {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .1em;
+      min-width: 28px;
+    }
+
+    .epic-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .epic-goal {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: auto;
+      display: none;
+    }
+
+    .epic-bar {
+      flex: 1;
+      max-width: 160px;
+      height: 4px;
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      margin-left: auto;
+    }
+
+    .epic-fill {
+      height: 100%;
+      background: var(--gold-dark);
+      transition: width .3s;
+    }
+
+    .epic-status {
+      margin-left: 10px;
+      font-size: 13px;
+    }
+
+    /* Story */
+    .story {
+      border: 1px solid var(--border-light);
+      border-top: none;
+      padding: 12px 16px 12px 52px;
+    }
+
+    .story-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .story-check {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+    }
+
+    .story-check.done {
+      background: var(--gold-dark);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .story-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .story-size {
+      font-size: 10px;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, .3);
+      padding: 1px 8px;
+      border: 1px solid var(--border-light);
+      margin-left: auto;
+    }
+
+    .story-bar {
+      width: 80px;
+      height: 3px;
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+
+    .story-fill {
+      height: 100%;
+      background: var(--gold);
+      transition: width .3s;
+    }
+
+    /* Task list */
+    .task-list {
+      list-style: none;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      border-bottom: 1px dotted rgba(58, 48, 80, .3);
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-check {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 8px;
+    }
+
+    .task-check.done {
+      background: var(--gold-dark);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .task-id {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      min-width: 40px;
+    }
+
+    .task-title {
+      flex: 1;
+    }
+
+    .task-pr-link {
+      font-size: 11px;
+      color: var(--gold-dark);
+      text-decoration: none;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .task-pr-link:hover {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+
+    .task-pr-link.draft {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .task-pr-status {
+      font-size: 14px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Kanban */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .kanban-col {
+      background: linear-gradient(180deg, #161622 0%, #12121a 100%);
+      border: 1px solid var(--border-light);
+      padding: 14px;
+      min-height: 160px;
+    }
+
+    .kanban-col-hdr {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(58, 48, 80, .4);
+      margin-bottom: 10px;
+    }
+
+    .kanban-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, .3);
+      padding: 1px 8px;
+      border: 1px solid var(--border-light);
+    }
+
+    .kanban-card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, #18182a 100%);
+      border: 1px solid var(--border-light);
+      padding: 12px;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kanban-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: .6;
+    }
+
+    .kanban-card.high::before {
+      background: linear-gradient(90deg, #ec4899, #a21caf, #ec4899);
+    }
+
+    .kanban-card.medium::before {
+      background: linear-gradient(90deg, #3b82f6, #1d4ed8, #3b82f6);
+    }
+
+    .kanban-card.low::before {
+      background: linear-gradient(90deg, var(--text-muted), #4a4a5a, var(--text-muted));
+    }
+
+    .kanban-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .kanban-card-meta {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .kanban-badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      letter-spacing: .06em;
+      border: 1px solid;
+    }
+
+    .kanban-badge.high {
+      background: rgba(236, 72, 153, .1);
+      border-color: rgba(236, 72, 153, .3);
+      color: #f472b6;
+    }
+
+    .kanban-badge.medium {
+      background: rgba(59, 130, 246, .1);
+      border-color: rgba(59, 130, 246, .3);
+      color: #60a5fa;
+    }
+
+    .kanban-badge.low {
+      background: rgba(156, 163, 175, .1);
+      border-color: rgba(156, 163, 175, .3);
+      color: var(--text-muted);
+    }
+
+    .kanban-assignee {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* Empty */
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Settings modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: linear-gradient(180deg, #1a1a2e 0%, #12121a 100%);
+      border: 1px solid var(--gold-dark);
+      width: 440px;
+      padding: 32px;
+      position: relative;
+    }
+
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .modal h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 16px;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+      letter-spacing: .1em;
+    }
+
+    .modal label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .modal input {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text-primary);
+      font-family: 'Noto Serif SC', serif;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .modal input:focus {
+      border-color: var(--gold);
+    }
+
+    .modal button {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+      color: #0a0a0f;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+      letter-spacing: .1em;
+    }
+
+    .modal button:hover {
+      filter: brightness(1.15);
+    }
+
+    .modal-close {
+      background: transparent !important;
+      border: 1px solid var(--border-light) !important;
+      color: var(--text-muted) !important;
+      padding: 6px 14px !important;
+      font-size: 12px !important;
+      margin-top: 10px;
+      width: auto !important;
+      letter-spacing: 0 !important;
+    }
+
+    .modal-close:hover {
+      border-color: var(--gold-dark) !important;
+      color: var(--gold) !important;
+      filter: none !important;
+    }
+
+    .modal .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin: -10px 0 14px;
+    }
+
+    /* Loading */
+    #loading {
+      text-align: center;
+      padding: 120px 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    #loading::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: .3;
+        transform: scaleX(.8)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleX(1.2)
+      }
+    }
+
+    /* No-data indicator */
+    .nd {
+      color: var(--text-muted);
+      font-size: 12px;
+      padding: 6px 0;
+    }
+
+    /* Status colors */
+    .s-todo {
+      color: #6b7280;
+    }
+
+    .s-wip {
+      color: #eab308;
+    }
+
+    .s-review {
+      color: #3b82f6;
+    }
+
+    .s-done {
+      color: #16a34a;
+    }
+
+    .s-error {
+      color: #ef4444;
+    }
+
+    /* Responsive */
+    @media(max-width:900px) {
+      .kanban-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      header {
+        padding: 0 16px;
+        gap: 6px;
+        overflow-x: auto;
+      }
+    }
+
+    @media(max-width:600px) {
+      .kanban-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      main {
+        padding: 12px 12px 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Moonlight Tavern</h1>
+    <div id="project-tabs"></div>
+    <div style="display:flex;gap:4px;">
+      <button class="settings-btn" onclick="toggleHelp()" title="Help">?</button>
+      <button class="settings-btn" onclick="toggleSettings()" title="Settings">⚙</button>
+    </div>
+  </header>
+  <main id="app">
+    <div id="loading">Loading...</div>
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop" id="settings-modal">
+    <div class="modal">
+      <h2>Settings</h2>
+      <label class="hide-done-toggle">
+        <input id="hide-done-checkbox" type="checkbox" onchange="toggleHideDone(this.checked)">
+        Hide completed tasks
+      </label>
+      <label class="hide-done-toggle">
+        <input id="show-archive-checkbox" type="checkbox" onchange="toggleShowArchive(this.checked)">
+        Show archived Sprints
+      </label>
+      <button onclick="toggleSettings()">Close</button>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div class="modal-backdrop" id="help-modal">
+    <div class="modal help-modal">
+      <h2>How to Use</h2>
+
+      <h3>Status</h3>
+      <table class="help-table">
+        <tr>
+          <td>⚪</td>
+          <td>Todo</td>
+          <td>No PR yet</td>
+        </tr>
+        <tr>
+          <td>🟡</td>
+          <td>In Progress</td>
+          <td>PR is a draft</td>
+        </tr>
+        <tr>
+          <td>🔵</td>
+          <td>In Review</td>
+          <td>PR is ready for review</td>
+        </tr>
+        <tr>
+          <td>✅</td>
+          <td>Done</td>
+          <td>PR has been merged</td>
+        </tr>
+        <tr>
+          <td>🟥</td>
+          <td>Error</td>
+          <td>PR closed without merge</td>
+        </tr>
+      </table>
+
+      <h3>Task IDs</h3>
+      <p>Format: T{sprint}.{seq}, e.g. <code>T1.1</code>, <code>T2.3</code>. PRs with <code>[T1.1]</code> in the title are auto-linked.</p>
+
+      <h3>Aggregated PRs</h3>
+      <p>A single PR can cover multiple tasks. Title format: <code>[T1.1][T1.2] description</code>.</p>
+
+      <h3>Data Refresh</h3>
+      <p>CI rebuilds every 5 minutes, aggregating PR statuses across all repos.</p>
+
+      <button class="modal-close" onclick="toggleHelp()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ── State ──────────────────────────────────────────────────────────
+    let DATA = null
+    let ACTIVE_PROJECT = null
+    let HIDE_DONE = localStorage.getItem('hide_done') === 'true'
+    let SHOW_ARCHIVE = localStorage.getItem('show_archive') === 'true'
+    // PR status → indicator mapping
+    const PR_ICONS = { todo: '⚪', wip: '🟡', review: '🔵', done: '✅', error: '🟥' }
+
+    // ── Data loading ───────────────────────────────────────────────────
+    async function loadApp() {
+      try {
+        const res = await fetch('/data.json?v=' + Date.now())
+        if (!res.ok) throw new Error('Failed to load data.json')
+        DATA = await res.json()
+        const projects = Object.keys(DATA.projects || {})
+        ACTIVE_PROJECT = ALL_PROJECTS
+        render()
+      } catch (e) {
+        document.getElementById('app').innerHTML =
+          `<div class="empty-state">Failed to load: ${e.message}</div>`
+      }
+    }
+
+    // ── Render ─────────────────────────────────────────────────────────
+    function render() {
+      if (!DATA) return
+      renderProjectTabs()
+      renderContent()
+    }
+
+    const ALL_PROJECTS = '__all__'
+
+    function renderProjectTabs() {
+      const container = document.getElementById('project-tabs')
+      const projects = Object.keys(DATA.projects || {})
+      container.innerHTML = `
+    <select class="project-select" onchange="switchProject(this.value)">
+      <option value="${ALL_PROJECTS}" ${ACTIVE_PROJECT === ALL_PROJECTS ? 'selected' : ''}>All Projects</option>
+      ${projects.map(p => `<option value="${p}" ${p === ACTIVE_PROJECT ? 'selected' : ''}>${p}</option>`).join('')}
+    </select>`
+    }
+
+    function switchProject(name) {
+      ACTIVE_PROJECT = name
+      renderProjectTabs()
+      renderContent()
+    }
+
+    function repoLink(name) {
+      const repo = DATA.repos?.[name]?.github
+      if (!repo) return ''
+      return 'https://github.com/' + repo + '/pulls'
+    }
+    function renderContent() {
+      const app = document.getElementById('app')
+
+      // "All Projects" — render all projects
+      if (ACTIVE_PROJECT === ALL_PROJECTS) {
+        const projects = Object.keys(DATA.projects || {})
+        app.innerHTML = projects.map(name => {
+          const p = DATA.projects[name]
+          const active = DATA.sprint_data?.[name]
+          const allArchived = DATA.archive_data?.[name] || []
+          const archived = SHOW_ARCHIVE ? allArchived.filter(a => a.name !== active?.name) : []
+          if (!active && archived.length === 0) return ''
+          const first = active || archived[0]
+          let inner = active ? renderSprintView(p, active) : ''
+          inner += archived.map(a => renderSprintView(p, a, true)).join('')
+          return `<div class="project-card">
+        <h3 class="project-section-title">
+          <span class="project-dot" style="background:${p.color || '#c9a84c'}"></span>
+          <span class="project-hdr-title">${repoLink(name) ? '<a href="' + repoLink(name) + '" target="_blank">' + name + '</a>' : name}</span>
+        </h3>
+        ${inner}
+      </div>`
+        }).filter(Boolean).join('\n')
+        return
+      }
+
+      const project = DATA.projects?.[ACTIVE_PROJECT]
+      if (!project) { app.innerHTML = '<div class="empty-state">Select a project</div>'; return }
+
+      const active = DATA.sprint_data?.[ACTIVE_PROJECT]
+      const allArchived = DATA.archive_data?.[ACTIVE_PROJECT] || []
+      const archived = SHOW_ARCHIVE ? allArchived.filter(a => a.name !== active?.name) : []
+
+      if (active || archived.length > 0) {
+        const first = active || archived[0]
+        let inner = active ? renderSprintView(project, active) : ''
+        inner += archived.map(a => renderSprintView(project, a, true)).join('')
+        app.innerHTML = `<div class="project-card">
+      <h3 class="project-section-title">
+        <span class="project-dot" style="background:${project.color || '#c9a84c'}"></span>
+        <span class="project-hdr-title">${repoLink(ACTIVE_PROJECT) ? '<a href="' + repoLink(ACTIVE_PROJECT) + '" target="_blank">' + ACTIVE_PROJECT + '</a>' : ACTIVE_PROJECT}</span>
+      </h3>
+      ${inner}
+    </div>` || '<div class="empty-state">No data</div>'
+        return
+      }
+
+      const tasks = (DATA.tasks || []).filter(t => t.project === ACTIVE_PROJECT)
+      if (tasks.length > 0) {
+        app.innerHTML = renderKanbanView(project, tasks)
+        return
+      }
+
+      app.innerHTML = `<div class="empty-state">${ACTIVE_PROJECT} — No tasks</div>`
+    }
+
+    // ── Sprint view ────────────────────────────────────────────────────
+    function renderSprintView(project, sprint, isArchived) {
+      const totalTasks = sprint.epics.reduce((s, e) => s + e.tasks.length, 0)
+      const doneTasks = sprint.epics.reduce((s, e) => s + e.tasks.filter(t => t.status === 'done').length, 0)
+      const pct = totalTasks > 0 ? Math.round(doneTasks / totalTasks * 100) : 0
+      const archiveClass = isArchived ? ' sprint-archived' : ''
+
+      let html = '<div class="sprint-card' + archiveClass + '">'
+      html += `
+    <div class="sprint-bar-wrap${archiveClass}">
+      <div class="sprint-bar-top" onclick="toggleSprint(this.parentElement.parentElement)" style="cursor:pointer;">
+        <span class="sprint-toggle">▾</span>
+        <span class="sprint-name">${sprint.name || `Sprint ${sprint.start}`}${isArchived ? ' <span style="font-size:10px;color:var(--text-muted);">(archived)</span>' : ''}</span>
+        ${sprint.start ? `<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">${sprint.start} ~ ${sprint.end || ''}</span>` : ''}
+        <span class="sprint-pct">${doneTasks}/${totalTasks} · ${pct}%</span>
+      </div>
+      <div class="sprint-bar"><div class="sprint-fill" style="width:${pct}%"></div></div>
+    </div>`
+
+      for (const epic of sprint.epics) {
+        const eDone = epic.tasks.filter(t => t.status === 'done').length
+        const ePct = epic.tasks.length > 0 ? Math.round(eDone / epic.tasks.length * 100) : 0
+        const eStatus = ePct === 100 ? '✅' : (eDone > 0 ? '🟡' : '⚪')
+
+        html += `<div class="epic">
+      <div class="epic-header" onclick="toggleEpic(this)">
+        <span class="epic-toggle">▾</span>
+        <span class="epic-id">${epic.id}</span>
+        <span class="epic-title">${epic.title}</span>
+        ${epic.goal ? `<span class="epic-goal">${epic.goal}</span>` : ''}
+        <div class="epic-bar"><div class="epic-fill" style="width:${ePct}%"></div></div>
+        <span class="epic-status">${eStatus}</span>
+      </div>`
+
+        for (const story of epic.stories) {
+          const sDone = story.tasks.filter(t => t.status === 'done').length
+          const sPct = story.tasks.length > 0 ? Math.round(sDone / story.tasks.length * 100) : 0
+
+          html += `<div class="story">
+        <div class="story-header">
+          <div class="story-check ${sPct === 100 ? 'done' : ''}">${sPct === 100 ? '✓' : ''}</div>
+          <span class="story-title">${story.title}</span>
+          ${story.size ? `<span class="story-size">${story.size}</span>` : ''}
+          <div class="story-bar"><div class="story-fill" style="width:${sPct}%"></div></div>
+        </div>
+        <ul class="task-list">`
+
+          for (const task of story.tasks) {
+            if (HIDE_DONE && task.status === 'done') continue
+            const status = task.status === 'done' ? 'done' :
+              task.pr ? (task.pr === 'draft' ? 'wip' : getPRStatusIcon(task)) :
+                task.status || 'todo'
+            const icon = status === 'done' ? '✅' : PR_ICONS[status] || '⚪'
+
+            html += `<li class="task-item">
+          <div class="task-check ${task.status === 'done' ? 'done' : ''}">${task.status === 'done' ? '✓' : ''}</div>
+          <span class="task-id">${task.id}</span>
+          <span class="task-title">${escapeHtml(task.title)}</span>
+          ${task.prUrl ? `<a class="task-pr-link" href="${task.prUrl}" target="_blank">PR ${task.pr}</a>` : task.pr === 'draft' ? `<span class="task-pr-link draft">draft</span>` : ''}
+          <span class="task-pr-status ${task.status === 'done' ? 's-done' : 's-todo'}">${icon}</span>
+        </li>`
+          }
+
+          html += `</ul></div>`
+        }
+        html += `</div>`
+      }
+
+      return html + '</div>'
+    }
+
+    function getPRStatusIcon(task) {
+      if (!task.pr) return 'todo'
+      if (task.pr === 'draft') return 'wip'
+      if (task.status === 'done') return 'done'
+      if (task.status === 'wip') return 'wip'
+      if (task.status === 'error') return 'error'
+      return 'review'
+    }
+
+    // ── Kanban view ────────────────────────────────────────────────────
+    const KANBAN_COLUMNS = [
+      { key: 'pending', label: 'Pending' },
+      { key: 'in_progress', label: 'In Progress' },
+      { key: 'testing', label: 'Testing' },
+      { key: 'done', label: 'Done' },
+      { key: 'released', label: 'Released' },
+    ]
+
+    function renderKanbanView(project, tasks) {
+      let html = `
+    <h3 class="project-section-title">
+      <span class="project-dot" style="background:${project.color || '#c9a84c'}"></span>
+      <span class="project-hdr-title">${repoLink(ACTIVE_PROJECT) ? '<a href="' + repoLink(ACTIVE_PROJECT) + '" target="_blank">' + ACTIVE_PROJECT + '</a>' : ACTIVE_PROJECT}</span>
+      <span class="project-hdr-meta">${tasks.length} tasks</span>
+    </h3>
+    <div class="kanban-grid">`
+
+      for (const col of KANBAN_COLUMNS) {
+        const colTasks = tasks.filter(t => t.status === col.key)
+        html += `<div class="kanban-col">
+      <div class="kanban-col-hdr">
+        <span>${col.label}</span>
+        <span class="kanban-count">${colTasks.length}</span>
+      </div>`
+        for (const task of colTasks) {
+          html += `<div class="kanban-card ${task.priority || 'low'}">
+        <div class="kanban-card-title">${escapeHtml(task.title)}</div>
+        <div class="kanban-card-meta">
+          <span class="kanban-badge ${task.priority || 'low'}">${task.priority || 'low'}</span>
+          ${task.assignee ? `<span class="kanban-assignee">${task.assignee}</span>` : ''}
+        </div>
+      </div>`
+        }
+        html += `</div>`
+      }
+
+      html += `</div>`
+      return html
+    }
+
+    // ── UI helpers ─────────────────────────────────────────────────────
+    function toggleHelp() {
+      document.getElementById('help-modal').classList.toggle('open')
+    }
+    function toggleHideDone(checked) {
+      HIDE_DONE = checked
+      localStorage.setItem('hide_done', checked)
+      renderContent()
+    }
+    function toggleShowArchive(checked) {
+      SHOW_ARCHIVE = checked
+      localStorage.setItem('show_archive', checked)
+      renderContent()
+    }
+    function toggleSprint(card) {
+      const btn = card.querySelector('.sprint-toggle')
+      const epics = card.querySelectorAll('.epic')
+      const hidden = btn.textContent === '▸'
+      btn.textContent = hidden ? '▾' : '▸'
+      for (const e of epics) { e.style.display = hidden ? '' : 'none' }
+    }
+    function toggleEpic(el) {
+      const parent = el.parentElement
+      const stories = parent.querySelectorAll('.story')
+      let hidden = el.querySelector('.epic-toggle').textContent === '▸'
+      for (const s of stories) { s.style.display = hidden ? '' : 'none' }
+      el.querySelector('.epic-toggle').textContent = hidden ? '▾' : '▸'
+    }
+
+    function toggleSettings() {
+      document.getElementById('settings-modal').classList.toggle('open')
+      document.getElementById('hide-done-checkbox').checked = HIDE_DONE
+      document.getElementById('show-archive-checkbox').checked = SHOW_ARCHIVE
+    }
+
+    function escapeHtml(s) {
+      if (!s) return ''
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    }
+
+    // ── Init ───────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', loadApp)
+  </script>
+</body>
+
+</html>

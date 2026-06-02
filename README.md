@@ -3,6 +3,8 @@
 Multi-repo project management + Sprint board, powered by Claude Code.  
 Git as the database. PR lifecycle as task status. Zero backend, zero manual updates.
 
+**Live demo:** https://lumetrix-dev.github.io/infra-moonlight-tavern/
+
 ## How It Works
 
 Task status is derived automatically from the PR lifecycle — no manual maintenance required:

@@ -1,184 +1,212 @@
-# claude-commands
+# Moonlight Tavern · v2.0
 
-Claude Code 全局命令：月光酒馆驱动的 Sprint 研发工作流。
+Multi-repo project management + Sprint board, powered by Claude Code.  
+Git as the database. PR lifecycle as task status. Zero backend, zero manual updates.
 
-所有命令基于 [infra-moonlight-tavern](https://github.com/523753042/infra-moonlight-tavern)（月光酒馆）中央 PM 仓库，任务状态由 PR 生命周期实时推导。
+## How It Works
 
-## 包含命令
+Task status is derived automatically from the PR lifecycle — no manual maintenance required:
 
-### 月光酒馆侧
-
-在 `infra-moonlight-tavern` 仓库中运行，直接操作 Sprint 规划与归档。
-
-| 命令 | 作用 |
-|------|------|
-| `/roadmap` | 规划或更新 ROADMAP.md：基于产品文档和设计稿 brainstorm |
-| `/plan` | 规划下一个 Sprint：从 ROADMAP 拆解 Epic/Story/Task，写入 SPRINT.md |
-| `/sp-close` | Sprint 结束时聚合所有 PR 状态，更新 SPRINT.md 并归档到 PROJECT.md |
-
-### Work Repo 侧
-
-在具体开发仓库中运行，关联月光酒馆完成日常研发工作。
-
-| 命令 | 作用 |
-|------|------|
-| `/project-init` | 新项目初始化：在月光酒馆创建项目目录 + meta.yaml + ROADMAP/SPRINT/PROJECT，注册 repos.yml，生成当前 work repo 的 CLAUDE.md |
-| `/my-tasks` | 列出当前 work repo 的未完成任务 + 实时 PR 状态 |
-| `/sprint-report` | 读取 SPRINT.md，结合 GitHub PR 实时状态，生成进度摘要报告 |
-| `/ship` | 为一个或多个任务创建聚合 draft PR（title 以 `[TXX.X]` 开头） |
-
-## 架构
-
-**任务状态由 PR 生命周期实时推导**，无需手动维护：
-
-| PR 状态 | 任务状态 | 图标 |
-|---------|---------|------|
-| 未开 PR | todo | ⚪ |
-| PR isDraft | wip | 🟡 |
+| PR Status | Task Status | Icon |
+|-----------|-------------|------|
+| No PR opened | todo | ⚪ |
+| PR is draft | wip | 🟡 |
 | PR open + ready | review | 🔵 |
 | PR merged | done | ✅ |
-| PR closed 未合并 | error | 🟥 |
+| PR closed without merge | error | 🟥 |
 
-## 安装和更新
+## Commands
+
+### Moonlight Tavern side
+
+Run inside the `infra-moonlight-tavern` repository.
+
+| Command | Purpose |
+|---------|---------|
+| `/mt-roadmap` | Plan or update ROADMAP.md: brainstorm based on product docs and design files |
+| `/mt-plan` | Plan the next Sprint: break down Epics/Stories/Tasks and write to SPRINT.md |
+| `/mt-sp-close` | At Sprint end, aggregate all PR statuses and archive to PROJECT.md |
+
+### Work Repo side
+
+Run inside any development repository linked to Moonlight Tavern.
+
+| Command | Purpose |
+|---------|---------|
+| `/mt-project-init` | Initialize a new project: create directory structure in Moonlight Tavern + generate CLAUDE.md |
+| `/mt-my-tasks` | List incomplete tasks for the current repo + real-time PR status |
+| `/mt-sprint-report` | Generate a Sprint progress summary with live PR data |
+| `/mt-ship` | Create an aggregated draft PR for one or more tasks (title starts with `[TXX.X]`) |
+| `/mt-update` | Check for command updates, compare local vs. remote version |
+
+## Usage Workflow
+
+### 1. Install commands
 
 ```bash
-curl -o- https://raw.githubusercontent.com/523753042/lib-claude-command/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/lib-claude-command/install.sh | bash
 ```
 
-或者 clone 后本地安装（离线场景）：
+Restart Claude Code. Commands are immediately available across all projects.
+
+### 2. Set up Moonlight Tavern
+
+Clone this repository as your starting point:
 
 ```bash
-git clone https://github.com/523753042/lib-claude-command
-cd lib-claude-command && bash install.sh
+git clone https://github.com/lumetrix-dev/infra-moonlight-tavern.git
+cd infra-moonlight-tavern
 ```
 
-安装后重启 Claude Code，所有项目中直接使用 `/plan`、`/ship` 等命令。
+Then point it to your own GitHub repository:
 
-## 文件结构
+```bash
+# Create a new empty repo on GitHub (e.g. your-org/infra-moonlight-tavern), then:
+git remote set-url origin https://github.com/your-org/infra-moonlight-tavern.git
+git push -u origin main
+```
 
-命令依赖以下文件（`/project-init` 会自动生成）：
+Then configure the repository:
 
-**月光酒馆（中央 PM 仓库）**
+1. **Create a PAT** — GitHub avatar → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)** → **Generate new token (classic)**, check the **`repo`** scope, copy the token (shown only once)
+2. **Add it as a secret** — your repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**, name `GH_PAT`, paste the token
+3. **Enable GitHub Pages** — your repo → **Settings** → **Pages** → set **Source** to **GitHub Actions**
+4. Push any change to `main` — the workflow runs and your board will be live at:
+   `https://your-org.github.io/infra-moonlight-tavern/`
+
+> The workflow also runs every 5 minutes on a schedule to keep PR statuses up to date.
+
+### 3. Initialize a project
+
+**New project**: create a work repo, then run inside it:
+
+```
+/mt-project-init
+```
+
+The Agent will guide you through creating the project directory, `meta.yaml`, `ROADMAP.md`, `SPRINT.md`, `PROJECT.md` in Moonlight Tavern, registering `repos.yml`, and generating `CLAUDE.md` in the work repo.
+
+**Existing project**: clone the work repo and proceed — no extra initialization needed.
+
+### 4. Plan the roadmap
+
+```
+/mt-roadmap
+```
+
+Provide your PRD and design files. The Agent brainstorms and writes `ROADMAP.md`.
+
+### 5. Plan the Sprint
+
+```
+/mt-plan
+```
+
+The Agent breaks down `ROADMAP.md` into Epics → Stories → Tasks and writes `SPRINT.md`.
+
+### 6. Start development
+
+```
+/mt-ship
+```
+
+The Agent reads `SPRINT.md`, creates a branch, and opens a draft PR with `[TXX.X]` in the title. Run `/mt-ship` repeatedly as you complete batches of tasks.
+
+### 7. Check progress
+
+```
+/mt-my-tasks
+```
+
+See current task status and live PR state at any time.
+
+### 8. Close the Sprint
+
+```
+/mt-sp-close
+```
+
+The Agent aggregates all PR statuses, updates `SPRINT.md`, archives to `PROJECT.md`, and prompts you to run `/mt-plan` for the next cycle.
+
+Repeat **steps 5 → 8** until `ROADMAP.md` is complete.
+
+### Mid-sprint changes
+
+Tell the Agent what changed and provide the updated PRD. It will sync `SPRINT.md` and `ROADMAP.md` accordingly.
+
+## SPRINT Task Format
+
+Tasks are structured in three levels: Epic → Story → sub-task. Each sub-task carries `owner:` and `PR:`:
+
+```markdown
+# Sprint 2 · Auth & Dashboard — 2026-05-26 ～ 2026-06-08
+
+## E1 · User Authentication
+> Goal: Complete login/register flow with JWT refresh
+
+### S1.1 Auth Pages (M)
+- [x] T1.1 Login page with form validation `owner: demo-web-app` `PR: #5`
+- [ ] T1.2 Registration page with email verification `owner: demo-web-app` `PR: draft`
+
+**Acceptance**: User can register and stay authenticated across page reloads
+```
+
+A single PR can cover multiple tasks — title format: `[T1.1][T1.2] description`.
+
+## File Structure
+
+**Moonlight Tavern (this repository)**
+
 ```
 infra-moonlight-tavern/
-├── repos.yml                注册所有 work repo
+├── repos.yml                    # work repo registry
 ├── projects/
-│   └── {项目名}/
-│       ├── meta.yaml        项目元信息
-│       ├── ROADMAP.md       长期路线图
-│       ├── SPRINT.md        当前 Sprint（PR 生命周期驱动状态）
-│       └── PROJECT.md       已完成 Sprint 归档
+│   └── {project-name}/
+│       ├── meta.yaml            # project metadata (name, color, members)
+│       ├── ROADMAP.md           # long-term roadmap
+│       ├── SPRINT.md            # current Sprint (PR lifecycle driven)
+│       └── PROJECT.md           # completed Sprint archive
+├── frontend/
+│   ├── index.html               # SPA dashboard (single-file vanilla JS)
+│   ├── scripts/aggregate-data.mjs  # SPRINT.md → data.json
+│   └── package.json
+└── lib-claude-command/
+    ├── install.sh               # command installer
+    └── mt-*.md                  # Claude Code slash commands
 ```
 
-**Work Repo（实际开发仓库）**
+**Work Repo**
+
 ```
-work-repo/
-└── CLAUDE.md                项目上下文 + 指向月光酒馆
+your-work-repo/
+└── CLAUDE.md                    # project context + pointer to Moonlight Tavern
 ```
 
-## 使用流程
+## Registering a Work Repo
 
-完整的 Sprint 研发工作流，从零到交付：
+Add an entry to `repos.yml`. The `name` must match the folder under `projects/`:
 
-### 1. 安装命令
+```yaml
+repos:
+  - name: demo-web-app
+    github: your-org/demo-web-app
+    description: "React TypeScript dashboard frontend"
+```
 
-在终端执行安装脚本，将所有命令注册到 Claude Code：
+## Dashboard
+
+**Local development:**
 
 ```bash
-curl -o- https://raw.githubusercontent.com/523753042/lib-claude-command/main/install.sh | bash
+cd frontend
+npm install
+npm start        # builds data.json + serves at http://localhost:8080
 ```
 
-安装后重启 Claude Code，所有项目中即可直接使用 `/plan`、`/ship` 等命令。
+**Deployment:**
 
-### 2. 准备月光酒馆仓库
-
-如果还没有月光酒馆中央 PM 仓库，克隆到本地，每个人的地址可能不同：
-
-```bash
-git clone https://github.com/523753042/infra-moonlight-tavern.git
-```
-
-或者新建一个空文件夹，后续 `/project-init` 会自动初始化结构。文件结构见上方 **文件结构** 一节。
-
-### 3. 初始化项目或拉取已有项目
-
-**新项目**：在本地新建一个 work repo，初始化 git 并配置好远程仓库，然后执行：
+Push to `main` — GitHub Actions builds `data.json` and deploys to Pages automatically (also runs every 5 minutes to refresh PR statuses):
 
 ```
-/project-init
-```
-
-Agent 会引导你完成：
-- 在月光酒馆中创建项目目录 + `meta.yaml`
-- 生成 `ROADMAP.md`、`SPRINT.md`、`PROJECT.md`
-- 注册 `repos.yml`
-- 在当前 work repo 生成 `CLAUDE.md`
-
-**已有项目**：如果已经有现成的 work repo，直接 clone 到本地即可：
-
-```bash
-git clone <work-repo-url>
-cd <work-repo>
-```
-
-无需额外初始化，直接进入下一步。
-
-### 4. 规划路线图
-
-```
-/roadmap
-```
-
-建议这一步把产品文档（PRD）和设计稿一并提供给 Agent，让 Agent 基于完整上下文 brainstorm 并写入 `ROADMAP.md`。
-
-### 5. 规划当前 Sprint
-
-```
-/plan
-```
-
-Agent 会从 `ROADMAP.md` 拆解出 Epic → Story → Task，写入 `SPRINT.md`，完成当前 Sprint 的规划。
-
-### 6. 开始开发
-
-```
-/ship
-```
-
-Agent 会自动：
-- 读取 `SPRINT.md` 列出可选任务
-- 根据你的选择创建 git 分支
-- 自动开 draft PR（title 包含任务编号 `[TXX.X]`）
-- PR body 包含任务 / 变更 / 验证 / 关联四段
-
-`/ship` 可反复执行，每轮完成一批任务后继续下一批。
-
-### 7. 查看进度
-
-随时执行 `/my-tasks` 查看当前任务进度和 PR 实时状态。Agent 会引导你继续通过 `/ship` 推进剩余工作。
-
-### 8. 归档并进入下一轮
-
-当前 `SPRINT.md` 中所有任务完成后，手动执行：
-
-```
-/sp-close
-```
-
-Agent 会聚合所有 PR 状态，更新 `SPRINT.md` 并归档到 `PROJECT.md`，然后引导你执行 `/plan` 进入下一个 Sprint。
-
-循环 **步骤 5 → 8**，直到 `ROADMAP.md` 中所有内容完成。
-
-### 9. 中途需求变更
-
-如果开发中途任务内容有调整，直接告诉 Agent 需求有变更。把更新后的 PRD 给 Agent，Agent 会同步更新 `SPRINT.md` 和 `ROADMAP.md`。
-
----
-
-## 更新
-
-重新执行安装命令即可覆盖更新：
-
-```bash
-curl -o- https://raw.githubusercontent.com/523753042/lib-claude-command/main/install.sh | bash
+https://<your-org>.github.io/infra-moonlight-tavern/
 ```

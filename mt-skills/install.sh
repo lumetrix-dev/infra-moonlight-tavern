@@ -20,8 +20,17 @@ if [ -z "$REMOTE_VERSION" ]; then
   exit 1
 fi
 
-if [ -z "$LOCAL_VERSION" ]; then
-  echo "Local:  (not installed)"
+# Check if any skill directory is missing from ~/.claude/skills/ (partial install)
+MISSING=false
+for s in "${SKILLS[@]}"; do
+  if [ ! -e "$CLAUDE_SKILLS_DIR/$s" ]; then
+    MISSING=true
+    break
+  fi
+done
+
+if [ -z "$LOCAL_VERSION" ] || [ "$MISSING" = "true" ]; then
+  echo "Local:  ${LOCAL_VERSION:-(not installed)}"
   echo "Remote: v$REMOTE_VERSION"
   echo ""
   read -rp "Proceed with fresh install? [Y/n] " confirm </dev/tty
@@ -54,14 +63,14 @@ done
 # ── Install each skill ───────────────────────────────────────────────────────
 for s in "${SKILLS[@]}"; do
   mkdir -p "$AGENTS_SKILLS_DIR/$s"
-  mkdir -p "$CLAUDE_SKILLS_DIR/$s"
 
   # Remove existing file or symlink before downloading to avoid curl following symlinks
   rm -f "$AGENTS_SKILLS_DIR/$s/SKILL.md"
   curl -fsSL "$RAW_BASE/$s.md" -o "$AGENTS_SKILLS_DIR/$s/SKILL.md"
 
-  # ~/.claude/skills/ symlinks into ~/.agents/skills/
-  ln -sf "$AGENTS_SKILLS_DIR/$s/SKILL.md" "$CLAUDE_SKILLS_DIR/$s/SKILL.md"
+  # ~/.claude/skills/ symlinks the whole skill directory into ~/.agents/skills/
+  rm -rf "$CLAUDE_SKILLS_DIR/$s"
+  ln -sf "$AGENTS_SKILLS_DIR/$s" "$CLAUDE_SKILLS_DIR/$s"
 
   echo "  ✓ $s"
 done

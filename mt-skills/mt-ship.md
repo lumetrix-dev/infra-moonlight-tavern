@@ -1,6 +1,6 @@
 ---
 name: mt-ship
-description: [Moonlight Tavern] Create an aggregated draft PR for one or more tasks (supports merging multiple TXX.X tasks into a single PR). [Work Repo side]
+description: "[Moonlight Tavern] Create an aggregated draft PR for one or more tasks (supports merging multiple TXX.X tasks into a single PR). [Work Repo side]"
 ---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.

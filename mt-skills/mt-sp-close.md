@@ -1,6 +1,6 @@
 ---
 name: mt-sp-close
-description: [Moonlight Tavern] At Sprint end, aggregate PR status across all work repos, update SPRINT.md, and archive to PROJECT.md once the Sprint is fully complete. [Moonlight Tavern side]
+description: "[Moonlight Tavern] At Sprint end, aggregate PR status across all work repos, update SPRINT.md, and archive to PROJECT.md once the Sprint is fully complete. [Moonlight Tavern side]"
 ---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.

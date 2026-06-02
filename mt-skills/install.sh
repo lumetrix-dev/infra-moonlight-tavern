@@ -74,14 +74,16 @@ for s in "${SKILLS[@]}"; do
   mkdir -p "$CLAUDE_SKILLS_DIR/$s"
 
   if [ -n "$LOCAL_SKILLS_DIR" ]; then
-    # Symlink mode: both dirs point to the same source file
+    # Local mode: ~/.agents/skills/ symlinks to repo source
     ln -sf "$LOCAL_SKILLS_DIR/$s.md" "$AGENTS_SKILLS_DIR/$s/SKILL.md"
-    ln -sf "$LOCAL_SKILLS_DIR/$s.md" "$CLAUDE_SKILLS_DIR/$s/SKILL.md"
   else
-    # Remote mode: download into both dirs
+    # Remote mode: download real file into ~/.agents/skills/
     curl -fsSL "$RAW_BASE/$s.md" -o "$AGENTS_SKILLS_DIR/$s/SKILL.md"
-    curl -fsSL "$RAW_BASE/$s.md" -o "$CLAUDE_SKILLS_DIR/$s/SKILL.md"
   fi
+
+  # ~/.claude/skills/ always symlinks into ~/.agents/skills/
+  ln -sf "$AGENTS_SKILLS_DIR/$s/SKILL.md" "$CLAUDE_SKILLS_DIR/$s/SKILL.md"
+
   echo "  ✓ $s"
 done
 

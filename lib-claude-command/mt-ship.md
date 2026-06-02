@@ -92,13 +92,13 @@ PR:     https://github.com/{org}/{repo}/pull/{N} (draft 🟡)
 
 👉 Next steps:
   - Complete development on the branch, commit and push code
-  - Run `/my-tasks` anytime to check task progress and PR status
-  - Run `/ship` again to start the next batch of tasks
+  - Run `/mt-my-tasks` anytime to check task progress and PR status
+  - Run `/mt-ship` again to start the next batch of tasks
 ```
 
 ## Notes
 
-- /ship runs inside the work repo and does not modify any files in Moonlight Tavern
+- /mt-ship runs inside the work repo and does not modify any files in Moonlight Tavern
 - PR title must include `[TXX.X]` (multiple tasks use `[T1.1][T1.2]` format)
 - Task status is derived in real time from the PR lifecycle — no need to manually maintain PR tags in SPRINT.md
 - "Moonlight Tavern", "tavern", and "moonlight" all refer to the `infra-moonlight-tavern` project

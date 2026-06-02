@@ -129,7 +129,7 @@ Display a change summary:
 Current phase: Phase {N} · {Phase Name}
 Milestones: X pending · Y completed
 
-👉 Next step: Run `/plan` to break down the ROADMAP into concrete Tasks for the current Sprint.
+👉 Next step: Run `/mt-plan` to break down the ROADMAP into concrete Tasks for the current Sprint.
 ```
 
 ## Notes

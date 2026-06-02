@@ -4,7 +4,7 @@
 
 ## Moonlight Tavern v2.0 Architecture
 
-Moonlight Tavern is the central PM repository. `/plan` always operates on project files within Moonlight Tavern and never touches work repos.
+Moonlight Tavern is the central PM repository. `/mt-plan` always operates on project files within Moonlight Tavern and never touches work repos.
 
 ```
 moonlight-tavern/projects/{project name}/
@@ -122,7 +122,7 @@ After pushing, notify the user:
 ```
 ✅ Sprint {N} plan committed and pushed
 
-👉 Next: run `/ship` in the work repo to start development — the Agent will automatically open a draft PR and link it to the task.
+👉 Next: run `/mt-ship` in the work repo to start development — the Agent will automatically open a draft PR and link it to the task.
 ```
 
 ## Output Format Example
@@ -145,7 +145,7 @@ Estimated total workload: ~5 days (2-person team)
 
 ## Notes
 
-- /plan always operates on the Moonlight Tavern project, not work repos
+- /mt-plan always operates on the Moonlight Tavern project, not work repos
 - All owners must be pre-registered in repos.yml, otherwise an error is reported
 - Task numbers follow the format T{sprint}.{sequence}
 - Do not modify any files in work repos

@@ -174,7 +174,7 @@ Moonlight Tavern board: `infra-moonlight-tavern` (see local path in memory)
 **Task status is derived in real time from the PR lifecycle** — my-tasks / sp-close automatically query GitHub PR status
 After completing a task, you do **not** need to manually update SPRINT.md in Moonlight Tavern
 
-**Prohibited behavior**: When using Claude in the work repo, **never directly modify task checkbox states in Moonlight Tavern's `SPRINT.md`** (e.g. changing `- [ ]` to `- [x]`). Task status is automatically derived from the PR lifecycle; only `/sp-close` and `/plan` commands are authorized to modify SPRINT.md.
+**Prohibited behavior**: When using Claude in the work repo, **never directly modify task checkbox states in Moonlight Tavern's `SPRINT.md`** (e.g. changing `- [ ]` to `- [x]`). Task status is automatically derived from the PR lifecycle; only `/mt-sp-close` and `/mt-plan` commands are authorized to modify SPRINT.md.
 
 **Command update check**: Before the first interaction each day, automatically run `/mt-update` to check for new command versions.
 
@@ -190,9 +190,9 @@ After completing a task, you do **not** need to manually update SPRINT.md in Moo
 ## Project Management Commands
 | Command | Purpose | Location |
 |---------|---------|---------|
-| `/plan` | Plan the next Sprint | Moonlight Tavern projects/{project-name}/SPRINT.md |
-| `/ship` | Open a draft PR (title starts with [TXX.X]) | Current work repo |
-| `/sp-close` | Aggregate all PR statuses and archive at Sprint end | Moonlight Tavern |
+| `/mt-plan` | Plan the next Sprint | Moonlight Tavern projects/{project-name}/SPRINT.md |
+| `/mt-ship` | Open a draft PR (title starts with [TXX.X]) | Current work repo |
+| `/mt-sp-close` | Aggregate all PR statuses and archive at Sprint end | Moonlight Tavern |
 ```
 
 ### 7. Push work repo changes
@@ -221,17 +221,17 @@ Current project side:
   - CLAUDE.md ← committed and pushed
 
 Available commands:
-  - /roadmap  Plan the roadmap based on PRD and designs (next step)
-  - /plan     Plan the next Sprint (Moonlight Tavern side)
-  - /ship     Open a draft PR to start a task
-  - /sp-close Aggregate PR statuses at Sprint end
+  - /mt-roadmap  Plan the roadmap based on PRD and designs (next step)
+  - /mt-plan     Plan the next Sprint (Moonlight Tavern side)
+  - /mt-ship     Open a draft PR to start a task
+  - /mt-sp-close Aggregate PR statuses at Sprint end
 
-👉 Next step: Run `/roadmap` to plan the project roadmap. It is recommended to provide the product document (PRD) and design assets to the Agent.
+👉 Next step: Run `/mt-roadmap` to plan the project roadmap. It is recommended to provide the product document (PRD) and design assets to the Agent.
 ```
 
 ## Notes
 
-- The Moonlight Tavern path is only asked for the first time `/project-init` is run; subsequent commands read it automatically from memory
+- The Moonlight Tavern path is only asked for the first time `/mt-project-init` is run; subsequent commands read it automatically from memory
 - "Moonlight Tavern", "tavern", and "moonlight" all refer to the `infra-moonlight-tavern` project
 - Do not modify existing file contents (unless the user explicitly requests it)
 - Task numbering format: T{sprint-number}.{task-number}, e.g. T1.1, T1.2, T2.1

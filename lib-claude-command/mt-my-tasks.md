@@ -80,7 +80,7 @@ E1 · Core Framework
 
 Summary: 0 todo · 1 in progress · 1 done
 
-👉 There are incomplete tasks. Run `/ship` to continue development.
+👉 There are incomplete tasks. Run `/mt-ship` to continue development.
 ```
 
 ### 8. Risk alerts

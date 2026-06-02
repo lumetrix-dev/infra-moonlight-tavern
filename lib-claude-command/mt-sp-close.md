@@ -142,9 +142,9 @@ After pushing, prompt the user:
 ```
 ✅ Sprint {N} archived and pushed
 
-👉 Next step: run `/plan` to start the next Sprint and break down new Tasks from the ROADMAP.
+👉 Next step: run `/mt-plan` to start the next Sprint and break down new Tasks from the ROADMAP.
 
-Loop: /plan → /ship → /sp-close, until all items in the ROADMAP are complete.
+Loop: /mt-plan → /mt-ship → /sp-close, until all items in the ROADMAP are complete.
 ```
 
 ## Output example

@@ -42,6 +42,12 @@ fi
 echo "Installing Moonlight Tavern Claude commands..."
 mkdir -p "$COMMANDS_DIR"
 
+# Remove legacy command files from ~/.claude/commands/
+LEGACY_DIR="$HOME/.claude/commands"
+for f in "${FILES[@]}"; do
+  [ -f "$LEGACY_DIR/$f" ] && rm "$LEGACY_DIR/$f" && echo "  🗑 removed legacy $LEGACY_DIR/$f"
+done
+
 for f in "${FILES[@]}"; do
   curl -fsSL "$RAW_BASE/$f" -o "$COMMANDS_DIR/$f"
   echo "  ✓ $f"

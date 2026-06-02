@@ -1,4 +1,7 @@
-[Moonlight Tavern] Initialize Moonlight Tavern project tracking for a new work repo (CLAUDE.md + ROADMAP.md + SPRINT.md + PROJECT.md). [Work Repo side]
+---
+name: mt-project-init
+description: [Moonlight Tavern] Initialize Moonlight Tavern project tracking for a new work repo (CLAUDE.md + ROADMAP.md + SPRINT.md + PROJECT.md). [Work Repo side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 

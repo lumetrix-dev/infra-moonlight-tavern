@@ -1,4 +1,7 @@
-[Moonlight Tavern] Plan or update ROADMAP.md, brainstorming based on product documents and design assets. [Moonlight Tavern side]
+---
+name: mt-roadmap
+description: [Moonlight Tavern] Plan or update ROADMAP.md, brainstorming based on product documents and design assets. [Moonlight Tavern side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 

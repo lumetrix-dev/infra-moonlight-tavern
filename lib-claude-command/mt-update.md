@@ -1,4 +1,7 @@
-[Moonlight Tavern] Check for command updates by comparing the local version against the remote version. [Work Repo side]
+---
+name: mt-update
+description: [Moonlight Tavern] Check for command updates by comparing the local version against the remote version. [Work Repo side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 
@@ -7,7 +10,7 @@
 ### 1. Read the local version
 
 ```bash
-cat ~/.claude/commands/.mt-version 2>/dev/null || echo "not installed"
+cat ~/.claude/skills/.mt-version 2>/dev/null || echo "not installed"
 ```
 
 ### 2. Fetch the latest remote version

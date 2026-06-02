@@ -4,7 +4,7 @@ set -e
 REPO="lumetrix-dev/infra-moonlight-tavern"
 BRANCH="main"
 RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH/lib-claude-command"
-COMMANDS_DIR="$HOME/.claude/commands"
+COMMANDS_DIR="$HOME/.claude/skills"
 FILES=(mt-plan.md mt-ship.md mt-project-init.md mt-my-tasks.md mt-sprint-report.md mt-roadmap.md mt-sp-close.md mt-update.md .mt-version)
 
 # Version check
@@ -20,16 +20,22 @@ if [ -z "$REMOTE_VERSION" ]; then
 fi
 
 if [ -z "$LOCAL_VERSION" ]; then
-  echo "Moonlight Tavern commands not found. Proceed with fresh install (v$REMOTE_VERSION)?"
-  read -rp "[Y/n] " confirm </dev/tty
+  echo "Local:  (not installed)"
+  echo "Remote: v$REMOTE_VERSION"
+  echo ""
+  read -rp "Proceed with fresh install? [Y/n] " confirm </dev/tty
   [[ "$confirm" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
 elif [ "$LOCAL_VERSION" = "$REMOTE_VERSION" ]; then
-  echo "Already up to date (v$LOCAL_VERSION). Reinstall anyway?"
-  read -rp "[y/N] " confirm </dev/tty
+  echo "Local:  v$LOCAL_VERSION"
+  echo "Remote: v$REMOTE_VERSION"
+  echo ""
+  read -rp "Already up to date. Reinstall anyway? [y/N] " confirm </dev/tty
   [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 0; }
 else
-  echo "Update available: v$LOCAL_VERSION → v$REMOTE_VERSION"
-  read -rp "Upgrade? [Y/n] " confirm </dev/tty
+  echo "Local:  v$LOCAL_VERSION"
+  echo "Remote: v$REMOTE_VERSION"
+  echo ""
+  read -rp "Update available. Upgrade? [Y/n] " confirm </dev/tty
   [[ "$confirm" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
 fi
 

@@ -1,4 +1,7 @@
-[Moonlight Tavern] List incomplete tasks and show real-time PR status. [Work Repo side]
+---
+name: mt-my-tasks
+description: [Moonlight Tavern] List incomplete tasks and show real-time PR status. [Work Repo side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 

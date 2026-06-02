@@ -1,4 +1,7 @@
-[Moonlight Tavern] Read SPRINT.md, combine with live GitHub PR status, and generate a progress summary report. [Work Repo side]
+---
+name: mt-sprint-report
+description: [Moonlight Tavern] Read SPRINT.md, combine with live GitHub PR status, and generate a progress summary report. [Work Repo side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 

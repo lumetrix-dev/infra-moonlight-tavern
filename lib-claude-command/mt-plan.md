@@ -1,4 +1,7 @@
-[Moonlight Tavern] Plan the next Sprint. [Moonlight Tavern side]
+---
+name: mt-plan
+description: [Moonlight Tavern] Plan the next Sprint. [Moonlight Tavern side]
+---
 
 > **Language:** Detect the language the user is writing in and respond entirely in that language. Default to English if unclear.
 

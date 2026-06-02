@@ -102,7 +102,7 @@ function parseSprintMd(raw) {
 		const simpleMatch = raw.match(/^#{1,2}\s+Sprint\s+(.+)/m)
 		if (simpleMatch) sprint.name = simpleMatch[1].trim()
 	}
-  // Normalize: "2 · 代码风格整理" → "S2 - 代码风格整理"
+  // Normalize: "2 · Some Title" → "S2 - Some Title"
   sprint.name = sprint.name.replace(/^(\d+)\s*[·•]\s*/, 'S$1 - ')
 
   for (const line of lines) {
@@ -117,7 +117,7 @@ function parseSprintMd(raw) {
 
     if (!currentEpic) continue
 
-    // Epic goal: > 目标：text (first `>` after epic, not repeated or warning lines)
+    // Epic goal: first blockquote after epic header, skip warning/bold lines
     const goalMatch = line.match(/^>\s+(.+)/)
     if (goalMatch && !currentEpic.goal && !goalMatch[1].startsWith('⚠️') && !goalMatch[1].startsWith('**')) {
       currentEpic.goal = goalMatch[1].trim()
@@ -233,7 +233,7 @@ function fetchLivePrStatuses(sprintData, repos) {
       const prs = JSON.parse(raw)
 
       // Build taskId → PR map by matching [TXX.X] in PR title
-      // Supports multiple task IDs per PR (e.g. "[T1.1][T1.2] 描述")
+      // Supports multiple task IDs per PR (e.g. "[T1.1][T1.2] description")
       for (const pr of prs) {
         const matches = [...pr.title.matchAll(/\[(T[\d.]+)\]/g)]
         if (!matches.length) continue

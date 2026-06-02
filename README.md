@@ -46,7 +46,7 @@ Run inside any development repository linked to Moonlight Tavern.
 ### 1. Install commands
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/lib-claude-command/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/mt-skills/install.sh | bash
 ```
 
 Restart Claude Code. Commands are immediately available across all projects.
@@ -172,7 +172,7 @@ infra-moonlight-tavern/
 │   ├── index.html               # SPA dashboard (single-file vanilla JS)
 │   ├── scripts/aggregate-data.mjs  # SPRINT.md → data.json
 │   └── package.json
-└── lib-claude-command/
+└── mt-skills/
     ├── install.sh               # command installer
     └── mt-*.md                  # Claude Code slash commands
 ```

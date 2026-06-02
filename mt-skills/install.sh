@@ -3,7 +3,7 @@ set -e
 
 REPO="lumetrix-dev/infra-moonlight-tavern"
 BRANCH="main"
-RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH/lib-claude-command"
+RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH/mt-skills"
 COMMANDS_DIR="$HOME/.claude/skills"
 FILES=(mt-plan.md mt-ship.md mt-project-init.md mt-my-tasks.md mt-sprint-report.md mt-roadmap.md mt-sp-close.md mt-update.md .mt-version)
 

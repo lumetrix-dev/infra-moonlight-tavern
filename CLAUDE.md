@@ -12,7 +12,7 @@ Lightweight multi-repo project management. PR = status. Git = database. Zero bac
 | `projects/{name}/PROJECT.md` | Completed Sprint archive |
 | `frontend/scripts/aggregate-data.mjs` | Parses SPRINT.md + fetches PR statuses → `data.json` |
 | `frontend/index.html` | SPA dashboard (vanilla JS, no build) |
-| `lib-claude-command/` | Claude Code slash commands + installer |
+| `mt-skills/` | Claude Code slash commands + installer |
 
 ## SPRINT.md Format
 
@@ -65,4 +65,4 @@ Lightweight multi-repo project management. PR = status. Git = database. Zero bac
 
 ## Versioning
 
-Before pushing functional changes, check if `lib-claude-command/.mt-version` needs a patch bump (e.g. `2.0.0` → `2.0.1`).
+Before pushing functional changes, check if `mt-skills/.mt-version` needs a patch bump (e.g. `2.0.0` → `2.0.1`).

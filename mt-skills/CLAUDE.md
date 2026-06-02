@@ -1,4 +1,4 @@
-# lib-claude-command — Agent Context
+# mt-skills — Agent Context
 
 ## What is this
 
@@ -7,7 +7,7 @@ A collection of Claude Code global commands implementing the Moonlight Tavern-dr
 ## Project Structure
 
 ```
-lib-claude-command/
+mt-skills/
 ├── install.sh                 Install script — copies command .md files to ~/.claude/commands/
 ├── .mt-version                 Version file
 ├── README.md                  Project overview + full usage workflow
@@ -44,7 +44,7 @@ lib-claude-command/
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/lib-claude-command/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lumetrix-dev/infra-moonlight-tavern/main/mt-skills/install.sh | bash
 ```
 
 Takes effect after restarting Claude Code. To update, re-run install.sh to overwrite.

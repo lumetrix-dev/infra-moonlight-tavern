@@ -7,7 +7,7 @@
           {
             "type": "command",
             "if": "Bash(git commit*)",
-            "command": "STAGED=$(git diff --cached --name-only 2>/dev/null); if echo \"$STAGED\" | grep -q 'lib-claude-command/' && ! echo \"$STAGED\" | grep -q 'lib-claude-command/.mt-version'; then printf '{\"continue\":false,\"stopReason\":\"\\u26a0\\ufe0f lib-claude-command/ has changes but .mt-version was not bumped. Update lib-claude-command/.mt-version before committing.\"}'; else printf '{\"continue\":true}'; fi",
+            "command": "STAGED=$(git diff --cached --name-only 2>/dev/null); if echo \"$STAGED\" | grep -q 'mt-skills/' && ! echo \"$STAGED\" | grep -q 'mt-skills/.mt-version'; then printf '{\"continue\":false,\"stopReason\":\"\\u26a0\\ufe0f mt-skills/ has changes but .mt-version was not bumped. Update mt-skills/.mt-version before committing.\"}'; else printf '{\"continue\":true}'; fi",
             "statusMessage": "Checking .mt-version bump..."
           }
         ]

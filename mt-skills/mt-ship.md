@@ -97,6 +97,9 @@ PR:     https://github.com/{org}/{repo}/pull/{N} (draft 🟡)
 
 👉 Next steps:
   - Complete development on the branch, commit and push code
+  - Mark the PR as **Ready for Review** (convert from draft) when development is done
+  - After code review (by yourself or a teammate), merge the PR
+  - Run `/mt-sp-close` after merging to archive the Sprint (when all tasks are done)
   - Run `/mt-my-tasks` anytime to check task progress and PR status
   - Run `/mt-ship` again to start the next batch of tasks
 ```

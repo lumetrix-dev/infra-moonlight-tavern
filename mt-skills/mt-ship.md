@@ -51,6 +51,12 @@ git checkout -b feat/T{XX.X}-{short-description}
 
 ### 3. Create aggregated PR
 
+**PR title format — strictly required:**
+- Single task: `[T2.2] {task description}`
+- Multiple tasks: `[T2.1][T2.2][T2.3] {story or feature description}`
+
+Each task number gets its own bracket pair, no spaces between them, in task order.
+
 ```bash
 # Commit (or use an empty commit as a placeholder)
 git commit --allow-empty -m "feat: {task description}"
@@ -59,13 +65,13 @@ git commit --allow-empty -m "feat: {task description}"
 git push -u origin $(git branch --show-current)
 
 gh pr create --draft \
-  --title "[T1.1][T1.2] {aggregated title}" \
+  --title "[T{XX.X}][T{XX.X}] {aggregated title}" \
   --body "## Tasks
 
 | Task | Description  |
 |------|-------------|
-| T1.1 | {task description}  |
-| T1.2 | {task description}  |
+| T{XX.X} | {task description}  |
+| T{XX.X} | {task description}  |
 
 ## Changes
 
@@ -79,10 +85,6 @@ gh pr create --draft \
 
 - Moonlight Tavern: {moonlight-tavern-path}/projects/{project-name}/SPRINT.md"
 ```
-
-PR title format:
-- **Aggregated tasks**: `[T1.1][T1.2] {Story title or feature description}`
-- **Single task**: `[T1.1] task description`
 
 ### 4. Output result
 
@@ -102,6 +104,6 @@ PR:     https://github.com/{org}/{repo}/pull/{N} (draft 🟡)
 ## Notes
 
 - /mt-ship runs inside the work repo and does not modify any files in Moonlight Tavern
-- PR title must include `[TXX.X]` (multiple tasks use `[T1.1][T1.2]` format)
+- PR title must strictly follow `[TXX.X]` format — single task: `[T2.2] desc`, multiple: `[T2.1][T2.2][T2.3] desc`
 - Task status is derived in real time from the PR lifecycle — no need to manually maintain PR tags in SPRINT.md
 - "Moonlight Tavern", "tavern", and "moonlight" all refer to the `infra-moonlight-tavern` project

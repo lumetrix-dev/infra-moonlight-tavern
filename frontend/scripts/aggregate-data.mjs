@@ -46,14 +46,8 @@ for (const projectName of readdirSync(projectsDir)) {
   const projectDir = join(projectsDir, projectName)
   if (!statSync(projectDir).isDirectory()) continue
 
-  // meta.yaml
-  const metaPath = join(projectDir, 'meta.yaml')
-  if (existsSync(metaPath)) {
-    const metaRaw = readFileSync(metaPath, 'utf-8')
-    projects[projectName] = load(metaRaw)
-  } else {
-    projects[projectName] = { name: projectName, color: '#94a3b8' }
-  }
+  const repoData = repos[projectName] || {}
+  projects[projectName] = { name: projectName, description: repoData.description || '', color: '#94a3b8' }
 
   // Task files (old format)
   const tasksDir = join(projectDir, 'tasks')

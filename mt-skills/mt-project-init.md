@@ -11,7 +11,6 @@ description: "[Moonlight Tavern] Initialize Moonlight Tavern project tracking fo
 moonlight-tavern/          ← Central PM repository
   repos.yml                Registers all work repos
   projects/{name}/
-    meta.yaml              Project metadata
     ROADMAP.md             Long-term roadmap
     SPRINT.md              Current Sprint (status driven by PR lifecycle)
     PROJECT.md             Completed Sprint archive
@@ -82,17 +81,7 @@ git remote add origin <remote repository URL provided by user>
 mkdir -p {moonlight-tavern-path}/projects/{project-name}
 ```
 
-**4.2 Create meta.yaml**
-```yaml
-name: {project-name}
-description: "{project-description}"
-color: "#6366F1"
-members: [{current git user}]
-```
-
-Let the user choose a color from presets (`#4F46E5` `#6366F1` `#059669` `#D97706` `#DC2626`), default is `#6366F1`.
-
-**4.3 Create ROADMAP.md**
+**4.2 Create ROADMAP.md**
 
 ```markdown
 # {project-name} — Roadmap
@@ -110,7 +99,7 @@ Let the user choose a color from presets (`#4F46E5` `#6366F1` `#059669` `#D97706
 [TBD]
 ```
 
-**4.4 Create SPRINT.md**
+**4.3 Create SPRINT.md**
 
 ```markdown
 # Sprint 1 · {Sprint Goal} — {start date} – {end date}
@@ -129,7 +118,7 @@ Let the user choose a color from presets (`#4F46E5` `#6366F1` `#059669` `#D97706
 - The `owner:` value must equal the project name (matching the name in repos.yml)
 - `PR:` is `-` when no PR is open; other statuses are automatically derived from the PR lifecycle (**no manual update needed**)
 
-**4.5 Create PROJECT.md**
+**4.4 Create PROJECT.md**
 
 ```markdown
 # {project-name} — Project Archive
@@ -214,7 +203,6 @@ git push
 ✅ {project-name} initialization complete
 
 Moonlight Tavern side (`infra-moonlight-tavern`):
-  - projects/{project-name}/meta.yaml
   - projects/{project-name}/ROADMAP.md
   - projects/{project-name}/SPRINT.md
   - projects/{project-name}/PROJECT.md

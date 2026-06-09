@@ -75,6 +75,16 @@ awk -F': ' '/^  - name:/ {print $2}' {moonlight-tavern-path}/repos.yml
 ```
 
 #### Rules
+
+**Hierarchy**:
+
+| Level | Definition | Scope |
+|-------|-----------|-------|
+| Epic | A product goal (maps to a ROADMAP Phase) | Week ~ Month |
+| Story | A user/system-perceivable result ("the system can do X") | 1–3 days |
+| Task | A concrete implementation step (which file to change, what function to add) | Hours |
+
+**Numbering**:
 - **Sprint number**: defined by `N` in the title `# Sprint N · ...`, e.g. Sprint 1 → N=1
 - **Epic number**: `E1` `E2` ... (continues across Sprints, does not reset)
 - **Story number**: `S{sprint number}.{sequence}`, e.g. Sprint 1 Stories are S1.1, S1.2

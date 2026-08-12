@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Major+Mono+Display&display=swap"
     rel="stylesheet">
-  <style>
+  <style id="css-dark">
     :root {
       --bg-primary: #0a0a0f;
       --bg-secondary: #12121a;
@@ -841,6 +841,950 @@
       }
     }
   </style>
+
+  <!--
+    Paper theme (lumen-pm style). Disabled by default; toggled from the header button.
+    Self-contained: redefines all tokens so legacy var() references keep working.
+  -->
+  <style id="css-paper" disabled>
+    :root {
+      --paper: #F4F2EC;
+      --paper-edge: #EAE6DC;
+      --ink: #0E0E10;
+      --ink-dim: #6B6B6F;
+      --ink-faint: #A8A6A0;
+      --red: #E0341C;
+      --green: #1F7A3A;
+      --amber: #B07E00;
+      --rule: rgba(14, 14, 16, .16);
+      --rule-strong: rgba(14, 14, 16, .55);
+      --mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Mono', 'Menlo', ui-monospace, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --display: 'Major Mono Display', 'JetBrains Mono', ui-monospace, 'PingFang SC', sans-serif;
+      /* remap legacy tokens so inline var() styles keep working */
+      --bg-primary: #F4F2EC;
+      --bg-secondary: #F4F2EC;
+      --bg-surface: #F4F2EC;
+      --bg-card: #F4F2EC;
+      --bg-hover: #EAE6DC;
+      --gold: #0E0E10;
+      --gold-light: #0E0E10;
+      --gold-dark: #0E0E10;
+      --text-primary: #0E0E10;
+      --text-secondary: #6B6B6F;
+      --text-muted: #A8A6A0;
+      --border-gold: #0E0E10;
+      --border-light: rgba(14, 14, 16, .55);
+      --radius-sm: 0;
+      --radius-md: 0;
+      --shadow-card: none;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: -1px -1px;
+      background-attachment: fixed;
+      background-blend-mode: multiply;
+    }
+
+    ::selection {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    :focus-visible {
+      outline: 1px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    /* Header */
+    header {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px 40px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-left: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper);
+    }
+
+    header h1 {
+      font-family: var(--display);
+      font-size: 15px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-right: auto;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .project-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: transparent;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'><path d='M1 1l3 3 3-3' stroke='%236B6B6F' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      color: var(--ink);
+      padding: 6px 26px 6px 10px;
+      font-size: 12px;
+      font-family: var(--mono);
+      cursor: pointer;
+      letter-spacing: .04em;
+      outline: none;
+      min-width: 180px;
+    }
+
+    .project-select:hover,
+    .project-select:focus {
+      border-color: var(--ink);
+    }
+
+    .project-select option {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .settings-btn {
+      background: transparent;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      color: var(--ink-dim);
+      width: 30px;
+      height: 30px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      line-height: 1;
+    }
+
+    .settings-btn:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* Project section */
+    .project-card {
+      padding: 36px 0 0
+    }
+
+    .project-card+.project-card {
+      margin-top: 36px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .project-section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin: 0 0 8px;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .project-dot {
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+      transform: translateY(1px);
+    }
+
+    .project-hdr-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .project-hdr-title a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .project-hdr-title a:hover {
+      border-bottom-color: var(--ink);
+    }
+
+    .project-hdr-meta {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-left: auto;
+    }
+
+    /* Main */
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 8px 40px 96px;
+      background: var(--paper);
+      border-left: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      min-height: 100vh;
+    }
+
+    /* Sprint */
+    .sprint-card {
+      margin-bottom: 40px
+    }
+
+    .sprint-card+.sprint-card {
+      border-top: 1px solid var(--rule);
+      padding-top: 32px;
+    }
+
+    .sprint-bar-wrap {
+      padding: 0
+    }
+
+    .sprint-bar-top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding: 2px 0;
+      margin-top: -2px;
+    }
+
+    .sprint-bar-top:hover {
+      background: var(--paper-edge);
+    }
+
+    .sprint-toggle {
+      font-size: 12px;
+      color: var(--ink-dim);
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sprint-name {
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .sprint-pct {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--ink-dim);
+      letter-spacing: .02em;
+    }
+
+    .sprint-bar {
+      height: 3px;
+      background: var(--paper-edge);
+      border: none;
+      overflow: hidden;
+    }
+
+    .sprint-fill {
+      height: 100%;
+      background: var(--ink);
+      transition: width .5s;
+    }
+
+    .sprint-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--ink-faint);
+      margin-top: 4px;
+    }
+
+    .sprint-archived {
+      opacity: .55
+    }
+
+    .sprint-archived:hover {
+      opacity: 1;
+      transition: opacity .3s;
+    }
+
+    /* Settings modal checkboxes */
+    .modal .hide-done-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--ink-dim);
+      user-select: none;
+      margin: 0 0 12px;
+    }
+
+    .modal .hide-done-toggle input[type=checkbox] {
+      accent-color: var(--ink);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* Help */
+    .help-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 20px;
+    }
+
+    .help-table td {
+      padding: 6px 8px;
+      font-size: 12px;
+      color: var(--ink-dim);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .help-table td:first-child {
+      width: 36px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .help-table td:nth-child(2) {
+      width: 120px;
+      font-weight: 500;
+      color: var(--ink);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .help-modal h3 {
+      margin: 20px 0 6px;
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .help-modal p {
+      margin: 6px 0 10px;
+      font-size: 12px;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+
+    .help-modal code {
+      background: var(--paper-edge);
+      padding: 1px 6px;
+      border: 1px solid var(--rule);
+      font-size: 11px;
+      color: var(--ink);
+      font-family: var(--mono);
+    }
+
+    /* Epic */
+    .epic {
+      padding: 0;
+      margin-bottom: 0
+    }
+
+    .epic-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 4px;
+      margin: 0;
+      background: none;
+      border: none;
+      border-top: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .epic-header:hover {
+      background: var(--paper-edge);
+    }
+
+    .epic-toggle {
+      font-size: 12px;
+      color: var(--ink-dim);
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .epic-id {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .14em;
+      color: var(--ink-dim);
+      min-width: 34px;
+    }
+
+    .epic-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .epic-goal {
+      font-size: 11px;
+      color: var(--ink-faint);
+      margin-left: auto;
+      display: none;
+    }
+
+    .epic-bar {
+      flex: 1;
+      max-width: 150px;
+      height: 3px;
+      background: var(--paper-edge);
+      border: none;
+      overflow: hidden;
+      margin-left: auto;
+    }
+
+    .epic-fill {
+      height: 100%;
+      background: var(--ink);
+      transition: width .3s;
+    }
+
+    .epic-status {
+      margin-left: 10px;
+      font-size: 12px;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    /* Story */
+    .story {
+      border: none;
+      padding: 0 0 0 48px;
+    }
+
+    .story-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 4px;
+      margin-bottom: 0;
+      border-top: 1px dotted var(--rule);
+    }
+
+    .story-check {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--rule-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+      color: var(--paper);
+      line-height: 1;
+    }
+
+    .story-check.done {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .story-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .story-size {
+      font-size: 10px;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      padding: 0;
+      margin-left: auto;
+    }
+
+    .story-bar {
+      width: 64px;
+      height: 3px;
+      background: var(--paper-edge);
+      border: none;
+      overflow: hidden;
+    }
+
+    .story-fill {
+      height: 100%;
+      background: var(--ink);
+      transition: width .3s;
+    }
+
+    /* Task list */
+    .task-list {
+      list-style: none;
+      padding-top: 2px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 4px 4px 24px;
+      font-size: 12px;
+      color: var(--ink-dim);
+      border-bottom: 1px dotted var(--rule);
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-check {
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--rule-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 8px;
+      color: var(--paper);
+      line-height: 1;
+    }
+
+    .task-check.done {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .task-id {
+      font-size: 11px;
+      color: var(--ink-dim);
+      min-width: 44px;
+    }
+
+    .task-title {
+      flex: 1;
+      color: var(--ink);
+    }
+
+    .task-pr-link {
+      font-size: 11px;
+      color: var(--ink);
+      text-decoration: none;
+      margin-left: auto;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .task-pr-link:hover {
+      border-bottom-color: var(--ink);
+    }
+
+    .task-pr-link.draft {
+      color: var(--ink-faint);
+      font-style: italic;
+      border-bottom: none;
+    }
+
+    .task-pr-status {
+      font-size: 12px;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    /* Kanban */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      padding-top: 24px;
+    }
+
+    .kanban-col {
+      padding: 0 18px;
+      min-height: 140px;
+    }
+
+    .kanban-col+.kanban-col {
+      border-left: 1px solid var(--rule);
+    }
+
+    .kanban-col:first-child {
+      padding-left: 0;
+    }
+
+    .kanban-col:last-child {
+      padding-right: 0;
+    }
+
+    .kanban-col-hdr {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule-strong);
+      margin-bottom: 12px;
+    }
+
+    .kanban-count {
+      font-size: 10px;
+      color: var(--ink-faint);
+    }
+
+    .kanban-card {
+      padding: 10px 0 10px 12px;
+      margin-bottom: 2px;
+      border: none;
+      border-bottom: 1px dotted var(--rule);
+      border-left: 2px solid var(--ink-faint);
+      background: none;
+      overflow: hidden;
+    }
+
+    .kanban-card.high {
+      border-left-color: var(--red);
+    }
+
+    .kanban-card.medium {
+      border-left-color: var(--amber);
+    }
+
+    .kanban-card.low {
+      border-left-color: var(--ink-faint);
+    }
+
+    .kanban-card-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .kanban-card-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .kanban-badge {
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0;
+      background: none;
+    }
+
+    .kanban-badge.high {
+      color: var(--red);
+    }
+
+    .kanban-badge.medium {
+      color: var(--amber);
+    }
+
+    .kanban-badge.low {
+      color: var(--ink-faint);
+    }
+
+    .kanban-assignee {
+      font-size: 10px;
+      color: var(--ink-faint);
+      margin-left: auto;
+    }
+
+    /* Empty / loading / misc */
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--ink-faint);
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 120px 24px;
+      color: var(--ink-dim);
+      font-size: 13px;
+    }
+
+    #loading::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--ink);
+      margin: 16px auto 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: .25
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    .nd {
+      color: var(--ink-faint);
+      font-size: 12px;
+      padding: 6px 0;
+    }
+
+    /* Status colors */
+    .s-todo {
+      color: var(--ink-faint);
+    }
+
+    .s-wip {
+      color: var(--amber);
+    }
+
+    .s-review {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .s-done {
+      color: var(--green);
+    }
+
+    .s-error {
+      color: var(--red);
+    }
+
+    /* Settings modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 14, 16, .4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      width: 460px;
+      padding: 36px;
+      position: relative;
+      box-shadow: 8px 8px 0 rgba(14, 14, 16, .08);
+    }
+
+    .modal h2 {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .modal label {
+      font-size: 12px;
+      color: var(--ink-dim);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .modal input:not([type=checkbox]) {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--ink);
+      font-family: var(--mono);
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    .modal input:not([type=checkbox]):focus {
+      border-color: var(--ink);
+    }
+
+    .modal button {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-radius: 0;
+      padding: 10px 22px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: var(--mono);
+      cursor: pointer;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .modal button:hover {
+      background: var(--ink-dim);
+    }
+
+    .modal .modal-close {
+      background: transparent !important;
+      border: 1px solid var(--rule-strong) !important;
+      color: var(--ink-dim) !important;
+      padding: 9px 20px !important;
+      font-size: 11px !important;
+      margin-top: 12px;
+      width: auto !important;
+      letter-spacing: .16em !important;
+      text-transform: uppercase !important;
+    }
+
+    .modal .modal-close:hover {
+      border-color: var(--ink) !important;
+      color: var(--ink) !important;
+      background: transparent !important;
+    }
+
+    .modal .hint {
+      font-size: 11px;
+      color: var(--ink-faint);
+      margin: -10px 0 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .kanban-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .kanban-col {
+        padding: 0 !important;
+        border-left: none !important;
+      }
+
+      header {
+        padding: 16px 20px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      main {
+        padding: 8px 20px 64px;
+      }
+
+      .project-select {
+        min-width: 0;
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kanban-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .project-hdr-meta {
+        display: none;
+      }
+
+      .story {
+        padding-left: 28px;
+      }
+
+      .task-item {
+        padding-left: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+
+  <!-- Apply saved theme before first paint to avoid a flash of the wrong theme -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('mt_theme') === 'paper') {
+          var paper = document.getElementById('css-paper')
+          var dark = document.getElementById('css-dark')
+          if (paper) paper.disabled = false
+          if (dark) dark.disabled = true
+        }
+      } catch (e) { /* ignore */ }
+    })()
+  </script>
+
+  <!-- Shared rule that applies in both themes -->
+  <style>
+    .settings-btn.theme-btn {
+      width: auto;
+      min-width: 30px;
+      padding: 0 10px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
 
 <body>
@@ -848,6 +1792,7 @@
     <h1>Moonlight Tavern</h1>
     <div id="project-tabs"></div>
     <div style="display:flex;gap:4px;">
+      <button class="settings-btn theme-btn" id="theme-btn" onclick="toggleTheme()" title="Switch theme" aria-label="Switch color theme"></button>
       <button class="settings-btn" onclick="toggleHelp()" title="Help">?</button>
       <button class="settings-btn" onclick="toggleSettings()" title="Settings">⚙</button>
     </div>
@@ -1191,8 +2136,27 @@
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
     }
 
+    // ── Theme switch ───────────────────────────────────────────────────
+    function setTheme(name) {
+      const paper = document.getElementById('css-paper')
+      const dark = document.getElementById('css-dark')
+      const isPaper = name === 'paper'
+      if (dark) dark.disabled = isPaper
+      if (paper) paper.disabled = !isPaper
+      localStorage.setItem('mt_theme', name)
+      const btn = document.getElementById('theme-btn')
+      if (btn) btn.textContent = isPaper ? 'dark' : 'light'
+    }
+    function toggleTheme() {
+      const paper = document.getElementById('css-paper')
+      setTheme(paper && !paper.disabled ? 'dark' : 'paper')
+    }
+
     // ── Init ───────────────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', loadApp)
+    document.addEventListener('DOMContentLoaded', () => {
+      setTheme(localStorage.getItem('mt_theme') === 'paper' ? 'paper' : 'dark')
+      loadApp()
+    })
   </script>
 </body>
 

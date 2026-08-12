@@ -16,6 +16,7 @@ mt-skills/
 ├── mt-sp-close.md             /mt-sp-close — Sprint archival (Moonlight Tavern side)
 ├── mt-project-init.md         /mt-project-init — New project initialization (Work Repo side)
 ├── mt-ship.md                 /mt-ship — Open a draft PR to start tasks (Work Repo side)
+├── mt-research.md             /mt-research — Guide no-code research/DevOps work, open doc PR (Work Repo side)
 ├── mt-update.md               /mt-update — Check for skill updates (Work Repo side)
 ├── mt-my-tasks.md             /mt-my-tasks — View task progress (Work Repo side)
 └── mt-sprint-report.md        /mt-sprint-report — Sprint progress report (Work Repo side)
@@ -35,7 +36,7 @@ mt-skills/
 - **Frontmatter description format**: `[Moonlight Tavern] {brief description}. [Moonlight Tavern side / Work Repo side]`
   - `[Moonlight Tavern]` prefix identifies the system this skill belongs to
   - `[Moonlight Tavern side]` suffix means the skill operates on the Moonlight Tavern PM repository (`/mt-roadmap` `/mt-plan` `/mt-sp-close`)
-  - `[Work Repo side]` suffix means the skill runs in a development repository (`/mt-project-init` `/mt-ship` `/mt-my-tasks` `/mt-sprint-report` `/mt-update`)
+  - `[Work Repo side]` suffix means the skill runs in a development repository (`/mt-project-init` `/mt-ship` `/mt-research` `/mt-my-tasks` `/mt-sprint-report` `/mt-update`)
 - Use `### N.` numbered steps to clearly guide the Agent's behavior path
 - Concrete executable bash commands go in code blocks
 - Show output format examples in code blocks

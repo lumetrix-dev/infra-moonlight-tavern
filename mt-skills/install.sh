@@ -6,7 +6,7 @@ BRANCH="main"
 RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH/mt-skills"
 AGENTS_SKILLS_DIR="$HOME/.agents/skills"
 CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
-SKILLS=(mt-plan mt-ship mt-project-init mt-my-tasks mt-sprint-report mt-roadmap mt-sp-close mt-update)
+SKILLS=(mt-plan mt-ship mt-project-init mt-my-tasks mt-sprint-report mt-roadmap mt-sp-close mt-update mt-research)
 
 # ── Version / confirmation prompt ───────────────────────────────────────────
 
